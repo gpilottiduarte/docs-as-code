@@ -1,0 +1,5 @@
+# Sobre o provisionamento dinâmico
+
+O provisionamento dinâmico simplifica a criação, a administração e o desprovisionamento de dados críticos em ambientes de TI, incluindo infraestruturas de nuvem e diversos sistemas. O Segura DSM potencializa esse processo para garantir a geração e a supervisão de segredos de forma segura e eficiente, assegurando que cada aplicativo ou serviço só possa acessar as credenciais necessárias por um período determinado.
+
+Essa abordagem se mostra particularmente vantajosa em configurações dinâmicas e em constante evolução, como Kubernetes e OpenShift, em que cada pod pode obter credenciais específicas para fazer interface com bancos de dados e serviços de nuvem. Isso reforça a prevenção do compartilhamento de segredos e minimiza o risco de exposição de dados confidenciais. Além disso, o Segura DSM pode remover automaticamente os segredos conectados após a exclusão do pod, preservando a segurança do ambiente.

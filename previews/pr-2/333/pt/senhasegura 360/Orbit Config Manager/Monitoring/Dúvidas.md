@@ -1,0 +1,4 @@
+## Dúvidas
+
+Como configurar o envio de logs através do Syslog para o SIEM?[Como configurar o envio de logs para SIEM](https://community.senhasegura.io/t/how-to-configure-log-shipping-for-siem/334/1)Como configurar integração do SIEM?[Configurar integração do SIEM](https://www.youtube.com/watch?v=J95Zfj2V5Y8)  
+Como ativar e configurar o monitoramento SNMP no senhasegura?[Configurar o monitoramento SNMP no senhasegura](https://www.youtube.com/watch?v=bvuE4TZ5Fss)Como configurar notificação para monitorar quando o usuário realizar login?[Configurar notificação para monitorar quando o usuário realizar login](https://community.senhasegura.io/t/monitor-user-login-notification-when-user-login/851)Como saber se comandos auditados foram executados no senhasegura?[Comandos auditados executados no senhasegura](https://community.senhasegura.io/t/how-to-know-if-audited-commands-were-executed-in-senhasegura/642)

@@ -1,0 +1,3 @@
+# Sobre o Active Directory
+
+O *Active Directory* (AD), um serviço fornecido pela Microsoft, desempenha um papel fundamental na autenticação de usuários no ambiente de segurança digital, oferecendo um acesso protegido e gerenciado. O protocolo LDAP (*Lightweight Directory Access Protocol*) é uma peça-chave nesse processo, permitindo consultas eficientes ao diretório para verificar as credenciais dos usuários. Combinados, o Active Directory e o LDAP garantem o benefício de sincronizar e usar automaticamente os usuários do AD, eliminando a necessidade de criar manualmente contas de usuário locais.

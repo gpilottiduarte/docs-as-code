@@ -1,0 +1,7 @@
+# Sobre segredos no DSM
+
+Um segredo refere-se a informações confidenciais, como chaves de acesso, credenciais de nuvem, pares de chave/valor e credenciais usadas em ambientes de DevOps para conceder acesso a sistemas como bancos de dados, servidores de API e serviços de nuvem. O gerenciamento de dados confidenciais em ambientes como pipelines de CI/CD, infraestrutura como código (IaaC) e ferramentas de automação como o Ansible pode ser um desafio para os desenvolvedores e as equipes de segurança. No entanto, o módulo **DevOps Secret Management (DSM)** so senhasegura facilita o gerenciamento de segredos ao centralizar os dados confidenciais em um cofre seguro e criptografado, acessível por meio de uma interface amigável.
+
+O módulo DSM atual oferece suporte a diferentes tipos de segredos, como nomes de usuário, senhas, chaves SSH (por meio da integração com o módulo PAM Core), credenciais de nuvem (por meio da integração com o módulo Cloud IAM), credenciais efêmeras (por meio de provisionamento dinâmico) e pares de chave/valor.
+
+Os segredos podem ser acessados por aplicativos, scripts ou por meio de chamadas de API que usam políticas de acesso para autorização. Por exemplo, uma automação criada

@@ -1,0 +1,2 @@
+# GET | Listar um dispositivo
+

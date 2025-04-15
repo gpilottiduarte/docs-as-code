@@ -1,0 +1,634 @@
+/* Reset e configurações gerais */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html, body {
+    height: 100%;
+    background: #e5f9f5; /* Fundo verde claro */
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    color: #003330; /* Texto escuro esverdeado */
+    line-height: 1.8;
+    font-size: 16px;
+}
+/* Navbar */
+.navbar {
+    padding: 1rem 2rem;
+    height: 70px;
+    background: #00332E; /* Verde escuro */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    color: #ffffff;
+}
+.navbar-content {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+.company-name {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #00E1C4; /* Verde turquesa brilhante */
+    margin-right: auto;
+}
+.dropdowns-container {
+    display: flex;
+    gap: 1rem;
+}
+.dropdown {
+    padding: 0.6rem 1.2rem;
+    border: 1px solid #00B29A;
+    border-radius: 8px;
+    background: #004D40; /* Verde médio escuro */
+    color: #ffffff;
+    font-size: 0.95rem;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2300E1C4' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 0.8rem center;
+    background-size: 1em;
+    padding-right: 2.5rem;
+}
+/* Layout principal */
+.container {
+    display: grid;
+    grid-template-columns: 350px 1fr 300px;
+    height: calc(100vh - 70px);
+    max-width: 1600px;
+    margin: 0 auto;
+    overflow: hidden;
+    gap: 1.5rem;
+}
+/* Ajustes globais para resolver problemas de espaçamento */
+html {
+    -webkit-text-size-adjust: 100%; /* Prevenir ajustes automáticos de texto */
+}
+/* Prevenção de espaçamentos indesejados */
+p, h1, h2, h3, h4, h5, h6 {
+    margin-bottom: 0.75em;
+}
+@media (max-width: 1200px) {
+    .container {
+        grid-template-columns: 300px 1fr;
+    }
+}
+@media (max-width: 768px) {
+    .container {
+        grid-template-columns: 1fr;
+    }
+}
+/* Barra lateral */
+.sidebar {
+    width: 100%;
+    height: 100%;
+    background: #ffffff;
+    border-right: 1px solid #00B29A;
+    overflow-y: auto;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.sidebar-header {
+    padding: 0 1rem 1rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #00B29A;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #00766C; /* Verde turquesa médio */
+}
+
+/* Ajuste da estrutura da sidebar */
+#sidebar-content {
+    width: 100%;
+    overflow: visible;
+}
+
+/* Posicionamento de itens da sidebar */
+.sidebar-item {
+    position: relative;
+    padding: 0.5rem 0.5rem 0.5rem 2rem;
+    margin: 0.3rem 0;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    list-style-type: none;
+    width: 100%;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+/* Elementos de pasta */
+.sidebar-folder {
+    font-weight: 500;
+    color: #004D40; /* Verde escuro */
+    width: 100%;
+    padding-right: 8px;
+    position: relative;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+.folder-icon {
+    margin-right: 0.5rem;
+    color: #00766C; /* Verde turquesa médio */
+}
+
+.sidebar-folder.open .folder-icon {
+    color: #00E1C4; /* Verde turquesa brilhante */
+}
+
+/* Itens de arquivo */
+.sidebar-item.file {
+    color: #006356; /* Verde médio */
+    font-weight: 400;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
+    padding-right: 8px;
+    width: 100%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+.file-icon {
+    margin-right: 0.5rem;
+    color: #00B29A; /* Verde turquesa */
+}
+
+.sidebar-item.file:hover,
+.sidebar-item.file.active {
+    background: #c4f7ef; /* Verde turquesa muito claro */
+    color: #004D40; /* Verde escuro */
+}
+
+/* Container de filhos */
+.children-container {
+    width: 100%;
+    padding-left: 1rem;
+    margin-left: 0;
+    display: none;
+    overflow: visible;
+}
+
+.sidebar-folder.open + .children-container {
+    display: block;
+}
+
+/* Garantir que os contêineres sejam dimensionados corretamente */
+.sidebar-content > div, 
+.children-container > div {
+    width: 100%;
+}
+
+/* Conteúdo principal */
+.content {
+    flex: 1;
+    height: 100%;
+    overflow-y: auto;
+    padding: 2.5rem;
+    background: #ffffff;
+    font-size: 1rem;
+    line-height: 1.8;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+.content-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding-bottom: 2rem;
+}
+.content-container ul:not(.toc) {
+    list-style-type: disc;
+    padding-left: 1.5rem; /* recuo reduzido */
+}
+.content-container ol:not(.toc) {
+    list-style-type: decimal;
+    padding-left: 1.5rem; /* recuo reduzido */
+}
+.content-container hr:not(.toc) {
+    border: none;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(0,102,86,0), rgba(0,102,86,0.75), rgba(0,102,86,0));
+    margin: 1rem 0;
+}
+.content .markdown-content ul,
+.content .markdown-content ol {
+    list-style-position: outside;
+    margin: 1rem 0;
+    padding-left: 1.5rem; /* recuo reduzido */
+}
+/* Tabela de conteúdos */
+.toc-container {
+    width: 300px;
+    height: calc(100vh - 70px);
+    position: sticky;
+    top: 70px;
+    padding: 1.5rem;
+    overflow-y: auto;
+    border-left: 1px solid #00B29A;
+    background: #f0faf8; /* Verde bem claro */
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+.toc-header {
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #00766C; /* Verde turquesa médio */
+}
+.toc-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+.toc-item {
+    color: #006356; /* Verde médio */
+    text-decoration: none;
+    transition: all 0.2s ease;
+    padding: 0.25rem 0;
+    border-left: 2px solid transparent;
+}
+.toc-item:hover {
+    color: #00B29A; /* Verde turquesa */
+    border-left-color: #00E1C4; /* Verde turquesa brilhante */
+}
+.toc-item.active {
+    color: #00B29A; /* Verde turquesa */
+    border-left-color: #00E1C4; /* Verde turquesa brilhante */
+}
+.toc-item.h1 { margin-left: 0; font-size: 1rem; }
+.toc-item.h2 { margin-left: 1rem; font-size: 0.9rem; }
+.toc-item.h3 { margin-left: 2rem; font-size: 0.85rem; }
+
+/* Estilização dos botões de feedback */
+.feedback-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e0f2f0;
+}
+
+.feedback-btn {
+    background-color: #ffffff;
+    color: #006356;
+    border: 2px solid #00B29A;
+    border-radius: 50%;
+    width: 3rem;
+    height: 3rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.like-btn:hover {
+    background-color: #e5f9f5;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 118, 108, 0.2);
+    border-color: #00E1C4;
+}
+
+.dislike-btn:hover {
+    background-color: #e5f9f5;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 118, 108, 0.2);
+    border-color: #00E1C4;
+}
+
+.feedback-btn:active {
+    transform: translateY(1px);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Melhoria do modal de feedback */
+.feedback-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #ffffff;
+    box-shadow: 0 10px 25px rgba(0, 77, 64, 0.15);
+    border-radius: 12px;
+    padding: 2.5rem;
+    z-index: 1000;
+    width: 90%;
+    max-width: 500px;
+    border-top: 5px solid #00B29A;
+}
+
+.feedback-modal-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.feedback-modal h3 {
+    font-size: 1.6rem;
+    color: #004D40;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.feedback-modal .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.feedback-modal .form-group label {
+    font-weight: 500;
+    color: #006356;
+}
+
+.feedback-modal textarea {
+    resize: none;
+    padding: 1rem;
+    border: 2px solid #c4f7ef;
+    border-radius: 8px;
+    font-size: 1rem;
+    line-height: 1.6;
+    min-height: 120px;
+    transition: border-color 0.3s ease;
+    background-color: #f9fffd;
+}
+
+.feedback-modal textarea:focus {
+    outline: none;
+    border-color: #00B29A;
+    box-shadow: 0 0 0 3px rgba(0, 178, 154, 0.1);
+}
+
+.feedback-modal .close-modal {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 1.5rem;
+    color: #004D40;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.feedback-modal .close-modal:hover {
+    color: #00E1C4;
+    background-color: #f0faf8;
+}
+
+.submit-feedback {
+    background-color: #00B29A;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    align-self: flex-start;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.submit-feedback:hover {
+    background-color: #00766C;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.submit-feedback:active {
+    transform: translateY(1px);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilização dos botões de feedback - versão com ícones maiores */
+.feedback-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e0f2f0;
+}
+
+.feedback-btn {
+    background-color: #f0faf8;
+    color: #00766C;
+    border: 1px solid #c4f7ef;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.feedback-btn svg {
+    width: 24px;
+    height: 24px;
+    stroke-width: 2;
+}
+
+.like-btn:hover {
+    background-color: #e5f9f5;
+    color: #00B29A;
+    border-color: #00B29A;
+    box-shadow: 0 3px 8px rgba(0, 178, 154, 0.2);
+    transform: translateY(-2px);
+}
+
+.dislike-btn:hover {
+    background-color: #e5f9f5;
+    color: #00B29A;
+    border-color: #00B29A;
+    box-shadow: 0 3px 8px rgba(0, 178, 154, 0.2);
+    transform: translateY(-2px);
+}
+
+.feedback-btn:active {
+    transform: translateY(1px);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Adicione um overlay para escurecer o fundo quando o modal estiver aberto */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 51, 46, 0.6);
+    z-index: 999;
+    backdrop-filter: blur(2px);
+}
+
+/* Tabelas */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    background-color: #ffffff;
+    border: 1px solid #00B29A;
+}
+th, td {
+    padding: 0.8rem;
+    text-align: left;
+    border: 1px solid #00B29A;
+}
+th {
+    background-color: #e5f9f5; /* Verde claro */
+    font-weight: 600;
+    color: #004D40; /* Verde escuro */
+}
+tr:nth-child(even) {
+    background-color: #f0faf8; /* Verde bem claro */
+}
+tr:hover {
+    background-color: #c4f7ef; /* Verde turquesa muito claro */
+}
+/* Callout components */
+.callout {
+    margin: 1.5rem 0;
+    padding: 1.25rem;
+    border-radius: 8px;
+    border-left: 4px solid;
+    background-color: #f0faf8; /* Verde bem claro */
+    position: relative;
+    font-size: 0.95rem;
+}
+.callout::before {
+    position: absolute;
+    left: -2px;
+    top: -10px;
+    padding: 0 0.75rem;
+    font-weight: 600;
+    font-size: 0.85rem;
+    border-radius: 4px;
+    background-color: #ffffff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+/* Info callout - Turquesa */
+.callout.info {
+    background-color: #e5f9f5; /* Verde claro */
+    border-left-color: #00B29A; /* Verde turquesa */
+}
+.callout.info::before {
+    content: attr(data-title);
+    color: #00766C; /* Verde turquesa médio */
+    border: 1px solid #00B29A; /* Verde turquesa */
+}
+/* Warning callout - Amarelo + Verde */
+.callout.warning {
+    background-color: #f8ffd7;
+    border-left-color: #76B900;
+}
+.callout.warning::before {
+    content: attr(data-title);
+    color: #4D7A00;
+    border: 1px solid #76B900;
+}
+/* Error callout - Vermelho + Verde */
+.callout.error {
+    background-color: #ffe5e5;
+    border-left-color: #B90057;
+}
+.callout.error::before {
+    content: attr(data-title);
+    color: #7A0039;
+    border: 1px solid #B90057;
+}
+/* Add icons if desired */
+.callout.info::after,
+.callout.warning::after,
+.callout.error::after {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    font-size: 1.25rem;
+    opacity: 0.4;
+}
+.callout.info::after {
+    content: "ℹ️";
+}
+.callout.warning::after {
+    content: "⚠️";
+}
+.callout.error::after {
+    content: "⛔";
+}
+li::marker {
+    margin-right: 0.5rem;
+}
+/* Se o conteúdo markdown estiver num contêiner específico, ex.: .markdown-content */
+.markdown-content ul,
+.markdown-content ol {
+    list-style-position: outside;
+    margin: 1rem 0;
+    padding-left: 10rem;
+}
+
+/* Estilo para o botão de API */
+.api-btn {
+    padding: 0.6rem 1.2rem;
+    border: 1px solid #00B29A;
+    border-radius: 8px;
+    background: #004D40;
+    color: #ffffff;
+    font-size: 0.95rem;
+    cursor: pointer;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    transition: all 0.2s ease;
+    margin-left: 1rem;
+}
+
+.api-btn:hover {
+    background: #00766C;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.api-btn::before {
+    content: '';
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='16 18 22 12 16 6'%3E%3C/polyline%3E%3Cpolyline points='8 6 2 12 8 18'%3E%3C/polyline%3E%3C/svg%3E");
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.company-name {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.company-name:hover {
+    color: #ffffff;
+}

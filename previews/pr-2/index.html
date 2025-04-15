@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Segura Docs</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<!-- Preview Banner -->
+<body>
+<div style="position:fixed; top:0; left:0; right:0; background:#ff9800; color:white; text-align:center; padding:8px; z-index:9999; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+  🔍 Preview da PR #2 - 
+  <a href="https://github.com/gpilottiduarte/docs-as-code/pull/2" style="color:white; text-decoration:underline;">Voltar para PR</a>
+</div>
+
+    <nav class="navbar">
+        <div class="navbar-content">
+            <a href="index.html" class="company-name">Segura Docs</a>
+            <div class="dropdowns-container">
+                <select id="versionSelect" class="dropdown"></select>
+                <select id="languageSelect" class="dropdown"></select>
+                <a href="api.html" target="_blank" class="api-btn">API Reference</a>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <aside class="sidebar">
+            <div id="sidebar-content"></div>
+        </aside>
+        
+        <main class="content" id="content">
+            <div class="content-container">
+                <!-- Conteúdo será injetado aqui -->
+            </div>
+        </main>
+        
+        <aside class="toc-container" id="toc-container">
+            <div class="toc-content">
+                <div class="toc-header">Conteúdo</div>
+                <nav class="toc-nav" id="toc-nav"></nav>
+                <div class="feedback-buttons">
+                    <button class="feedback-btn like-btn" title="Marcar como útil">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path>
+                        </svg>
+                    </button>
+                    <button class="feedback-btn dislike-btn" title="Sugerir melhoria">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h3a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2h-3"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </aside>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

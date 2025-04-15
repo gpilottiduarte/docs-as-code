@@ -1,0 +1,1419 @@
+
+"openapi": "3.0.0"
+"info":
+  "title": "senhasegura API"
+  "version": "1.0.0"
+"servers":
+  -
+    "url": "https://{vaultHost}"
+    "description": "Servidor do Cofre"
+    "variables":
+      "vaultHost":
+        "default": "testing.km.lab.mt4.dev"
+        "description": ""
+"components":
+  "securitySchemes":
+    "oauth2Auth":
+      "type": "oauth2"
+      "flows":
+        "clientCredentials":
+          "tokenUrl": "/iso/oauth2/token"
+          "scopes":
+            "read": "Grants read access"
+            "write": "Grants write access"
+"security":
+  -
+    "oauth2Auth":
+      - "read"
+      - "write"
+"tags":
+  -
+    "name": "PAM"
+  -
+    "name": "PAM > Devices"
+  -
+    "name": "PAM > Credentials"
+  -
+    "name": "PAM > Information"
+  -
+    "name": "PAM > Proxy Sessions"
+  -
+    "name": "PAM > SSH Keys"
+  -
+    "name": "Dashboard"
+    "description": "Dashboards module"
+  -
+    "name": "Certificate Management"
+  -
+    "name": "DevOps Secret Management"
+    "description": "senhasegura DevOps Secret Management (DSM) Endpoints"
+  -
+    "name": "Não documentado"
+  -
+    "name": "User Management"
+  -
+    "name": "MySafe"
+  -
+    "name": "MySafe > API Secret"
+  -
+    "name": "MySafe > Password"
+  -
+    "name": "MySafe > Note"
+"paths":
+  "/iso/pam/device":
+    "get":
+      "tags":
+        - "PAM > Devices"
+      "summary": "List All Devices"
+      "responses":
+        "200":
+          "description": "Successful response"
+          "content":
+            "application/json": {}
+    "post":
+      "tags":
+        - "PAM > Devices"
+      "summary": "Create/Update Device"
+      "requestBody":
+        "content": {}
+      "parameters":
+        -
+          "name": "hostname"
+          "in": "query"
+          "schema":
+            "type": "string"
+          "description": "[Obrigatório] Hostname do dispositivo."
+          "example": "sensui"
+        -
+          "name": "ip"
+          "in": "query"
+          "schema":
+            "type": "string"
+          "description": "[Obrigatório] IP do dispositivo."
+          "example": "192.168.15.8"
+        -
+          "name": "type"
+          "in": "query"
+          "schema":
+            "type": "string"
+          "description": "[Obrigatório] Tipo do dispositivo. Deve ser um tipo já cadastrado no senhasegura."
+          "example": "Server"
+        -
+          "name": "vendor"
+          "in": "query"
+          "schema":
+            "type": "string"
+          "description": "[Obrigatório] Fabricante do dispositivo. Será criado caso não exista no senhasegura"
+          "example": "Microsoft"
+        -
+          "name": "model"
+          "in": "query"
+          "schema":
+            "type": "string"
+          "description": "[Obrigatório] Modelo do dispositivo. Será criado caso não exista no senhasegura"
+          "example": "Windows 11"
+        -
+          "name": "site"
+          "in": "query"
+          "schema":
+            "type": "string"
+          "description": "[Obrigatório] Localidade do dispositivo. Será criado caso não exista no senhasegura."
+          "example": "Labs"
+        -
+          "name": "device_domain"
+          "in": "query"
+          "schema":
+            "type": "string"
+          "description": "[Opcional] Domínio do dispositivo. Só são aceitos domínios previamente cadastrados."
+        -
+          "name": "device_tags"
+          "in": "query"
+          "schema":
+            "type": "string"
+          "description": "[Opcional] Tags do dispositivo."
+          "example": "windows,lab"
+        -
+          "name": "connectivities"
+          "in": "query"
+          "schema":
+            "type": "string"
+          "description": "[Opcional] Conectividades do dispositivo."
+          "example": "RDP:3389"
+      "responses":
+        "200":
+          "description": "Successful response"
+          "content":
+            "application/json": {}
+  "/iso/pam/device/{device_id}":
+    "get":
+      "tags":
+        - "PAM > Devices"
+      "summary": "Access Device by ID"
+      "description": "### GET /api/pam/device\nEste endpoint recupera uma lista de dispositivos.\n#### Corpo da Requisição\nEsta requisição não requer um corpo de requisição.\n#### Resposta\n- Status: 200 - Content-Type: application/json\n```json { \"code\": 0, \"response\": { \"status\": 0, \"message\": \"\", \"error\": true, \"error_code\": 0, \"detail\": \"\", \"mensagem\": \"\", \"erro\": true, \"cod_erro\": 0 }, \"tenant\": \"\", \"devices\": [ { \"id\": \"\", \"hostname\": \"\", \"ip\": \"\", \"model\": \"\", \"type\": \"\", \"vendor\": \"\", \"site\": \"\", \"tags\": \"\" } ] } ```\nA resposta inclui uma lista de dispositivos com seus respectivos detalhes como ID, hostname, IP, modelo, tipo, fabricante, site e tags."
+      "parameters":
+        -
+          "name": "device_id"
+          "in": "path"
+          "schema":
+            "type": "string"
+          "required": true
+      "responses":
+        "200":
+          "description": "Successful response"
+          "content":
+            "application/json": {}
+    "delete":
+      "tags":
+        - "PAM > Devices"
+      "summary": "Delete Device by ID"
+      "parameters":
+        -
+          "name": "device_id"
+          "in": "path"
+          "schema":
+            "type": "string"
+          "required": true
+      "responses":
+        "200":
+          "description": "Successful response"
+          "content":
+            "application/json": {}
+    "put":
+      "tags":
+        - "PAM > Devices"
+      "summary": "Activate Device by ID"
+      "requestBody":
+        "content": {}
+      "parameters":
+        -
+          "name": "device_id"
+          "in": "path"
+          "schema":
+            "type": "string"
+          "required": true
+      "responses":
+        "200":
+          "description": "Successful response"
+          "content":
+            "application/json": {}
+  "/iso/pam/credential/":
+    "get":
+      "tags":
+        - "PAM > Credentials"
+      "summary": "List All Credentials"
+      "security":
+        -
+          "oauth2Auth": []
+      "responses":
+        "200":
+          "description": "Successful response"
+          "content":
+            "application/json": {}
+  "/iso/pam/credential":
+    "get":
+      "tags":
+        - "PAM > Credentials"
+      "summary": "List User Credentials"
+      "security":
+        -
+          "oauth2Auth": []
+      "responses":
+        "200":
+          "description": "Successful response"
+          "content":
+            "application/json": {}
+    "post":
+      "tags":
+        - "PAM > Credentials"
+      "summary": "Create/Update Credential"
+      "requestBody":
+        "content":
+          "application/json":
+            "schema":
+              "type": "object"
+              "example":
+                "username": "winlabadmin"
+                "additional": "Lab admin"
+                "tags": "windows,lab"
+                "credential_type": "Local Administrator"
+                "domain": ""
+                "parent_password": ""
+                "hostname": "sensui"
+                "ip": "192.168.15.8"
+                "type": "Workstation"
+                "vendor": "Microsoft"
+                "model": "Windows 11"
+                "site": "Labs"
+                "device_domain": ""
+                "device_tags": "windows,lab"
+                "connectivities": "RDP:3389"
+                "session_remote_conig": ""
+                "content": "123456789"
+                "session_settings":
+                  "SSH": true
+                  "Telnet": true
+                  "MySQL": true
+                  "SQL Server": true
+                  "HTTP": true
+                  "HTTPS": true
+                  "RDP": true
+                  "X11 Forward": true
+                  "VNC": true
+                  "restrict_access_to_remote_application": true
+                  "macros":
+                    -
+                      "remote_app": "MySQL"
+                      "connectivity": "SSH"
+                    -
+                      "remote_app": "Kaspersky"
+                      "connectivity": "RDp"
+                  "use_own_credential_to_connect": false
+                  "authentication_credential": "cred2"
+                  "authentication_hostname": "gmail"
+                  "authentication_ip": "https://www.gmail.com"
+                "additional_settings":
+                  "identifier": "identificador"
+                  "user_credential_owner": "admin"
+                  "server_path": "/etc/host"
+                  "secret_key": "value"
+                  "criticality": "High"
+                  "additional_authentication_fields":
+                    -
+                      "name": "nome"
+                      "short_name": "short_name"
+                      "value": "value"
+                    -
+                      "name": "nome2"
+                      "short_name": "shot_name2"
+                      "value": "value2"
+                  "notes": "notes"
+                "jit_settings":
+                  "jit": false
+                  "credential_creation_and_deletion": true
+                  "enable_disable_credential": false
+                  "use_own_credential_to_connect": false
+                  "authentication_credential": "cred2"
+                  "authentication_hostname": "gmail"
+                  "authentication_ip": "https://www.gmail.com"
+                  "credential_creation_plugin": "plugin"
+                  "credential_creation_template": "template"
+                  "credential_deletion_plugin": "plugin"
+                  "credential_deletion_template": "template"
+                  "credential_enable_plugin": "plugin"
+                  "credential_enable_template": "template"
+                  "credential_disable_plugin": "plugin"
+                  "credential_disable_template": "template"
+      "responses":
+        "200":
+          "description": "Successful response"
+          "content":
+            "application/json": {}
+  "/iso/pam/credential/2":
+    "get":
+      "tags":
+        - "PAM > Credentials"
+      "summary": "Access Credential by ID"
+      "responses":
+        "200":
+          "description": "Successful response"
+          "content":
+            "application/json": {}
+  "/iso/pam/credential/{credential_id}":
+    "delete":
+      "tags":
+        - "PAM > Credentials"
+      "summary": "Delete Credential by ID"
+      "parameters":
+        -
+          "name": "credential_id"
+          "in": "path"
+          "schema":
+            "type": "string"
+          "required": true
+      "responses":
+        "200":
+          "description": "Successful response"
+          "content":
+            "application/json": {}
+  "/iso/pam/credential/custody/dleite2@Lab":
+    "delete":
+      "tags":
+        - "PAM > Credentials"
+      "summary": "Release Credential Custody by ID"
+      "security":
+        -
+          "oauth2Auth": []
+      "responses":
+        "200":
+          "description": "Successful response"
+          "content":
+            "application/json": {}
+  "/iso/pam/info/{info_id}":
+    "get":
+      "tags":
+        - "PAM > Information"
+      "summary": "Access Info by ID"
+      "parameters":
+        -
+          "name": "info_id"
+          "in": "path"
+          "schema":
+            "type": "string"
+          "required": true
+      "responses":
+        "200":
+          "description": "Successful response"
+          "content":
+            "application/json": {}
+    "delete":
+      "tags":
+        - "PAM > Information"
+      "summary": "Delete Info by ID"
+      "parameters":
+        -
+          "name": "info_id"
+          "in": "path"
+          "schema":
+            "type": "string"
+          "required": true
+      "responses":
+        "200":
+          "description": "Successful response"
+          "content":
+            "application/json": {}
+  "/iso/pam/info":
+    "post":
+      "tags":
+        - "PAM > Information"
+      "summary": "Create Info"
+      "requestBody":
+        "content": {}
+      "parameters":
+        -
+          "name": "content"
+          "in": "query"
+          "schema":
+            "type": "string"
+          "description": "[Obrigatório] Conteúdo em texto a ser protegido. Não é possível realizar upload de arquivos."
+          "example": "Esta é uma informação protegida"
+        -
+          "name": "identifier"
+          "in": "query"
+          "schema":
+            "type": "string"
+          "description": "Identificador único da informação utilizada para identificação posterior."
+          "example": "API"
+        -
+          "name": "name"
+          "in": "query"
+          "schema":
+            "type": "string"
+          "description": "Nome da informação que será apresentada nas telas do senhasegura®."
+          "example": "api-test-info"
+        -
+          "name": "type"
+          "in": "query"
+          "schema":
+            "type": "string"
+          "description": "Tipo de informação. Deve ser um tipo já cadastrado"
+          "example": "Access Credential"
+      "responses":
+        "200":
+          "description": "Successful response"
+          "content":
+            "application/json": {}
+  "/iso/session/drop/018d3131-0bf6-71c2-be17-999f062b8312":
+    "delete":
+      "tags":
+        - "PAM > Proxy Sessions"
+      "summary": "Terminate Session by ID"
+      "responses":
+        "200":
+          "description": "Successful response"
+          "content":
+            "application/json": {}
+  "/api/remote/session":
+    "post":
+      "tags":
+        - "PAM > Proxy Sessions"
+      "summary": "New Proxy Session"
+      "requestBody":
+        "content":
+          "multipart/form-data":
+            "schema":
+              "type": "object"
+              "properties":
+                "user":
+                  "type": "string"
+                  "example": "dleite"
+                "credential":
+                  "type": "string"
+                  "example": "usr"
+                "device":
+                  "type": "string"
+                  "example": "10.66.33.28"
+                "protocol":
+                  "type": "string"
+                  "example": "ssh"
+      "security":
+        -
+          "oauth2Auth": []
+      "responses":
+        "200":
+          "description": "Successful response"
+          "content":
+            "application/json": {}
+  "/iso/session/remotesessions":
+    "get":
+      "tags":
+        - "PAM > Proxy Sessions"
+      "summary": "Get All Sessions Info"
+      "responses":
+        "200":
+          "description": "Successful response"
+          "content":
+            "application/json": {}
+  "/iso/session/remotesessions/1076":
+    "get":
+      "tags":
+        - "PAM > Proxy Sessions"
+      "summary": "Get Session Info by ID"
+      "responses":
+        "200":
+          "description": "Successful response"
+          "content":
+            "application/json": {}
+  "/iso/pam/key/108":
+    "get":
+      "tags":
+        - "PAM > SSH Keys"
+      "summary": "List key by ID"
+      "responses":
+        "200":
+          "description": "Successful response"
+          "content":
+            "application/json": {}
+  "/iso/pam/key":
+    "post":
+      "tags":
+        - "PAM > SSH Keys"
+      "summary": "Create or Update Key"
+      "requestBody":
+        "content":
+          "application/json":
+            "schema":
+              "type": "object"
+              "example":
+                "username": "noahuser22"
+                "ip": "servert-test"
+                "private_key": "private#ssh10"
+                "public_key": "public#ssh10"
+                "password": null
+                "expiration_time": null
+      "responses":
+        "200":
+          "description": "Successful response"
+          "content":
+            "application/json": {}
+  "/iso/pam/key/109":
+    "put":
+      "tags":
+        - "PAM > SSH Keys"
+      "summary": "Enable Key by ID"
+      "requestBody":
+        "content": {}
+      "responses":
+        "200":
+          "description": "Successful response"
+          "content":
+            "application/json": {}
+    "delete":
+      "tags":
+        - "PAM > SSH Keys"
+      "summary": "Disable Key by ID"
+      "responses":
+        "200":
+          "description": "Successful response"
+          "content":
+            "application/json": {}
+  "/iso/coge/sessoes/{protocol_type}":
+    "get":
+      "tags":
+        - "Dashboard"
+      "summary": "Sessions"
+      "description": "<p>Retorna a quantidade de sessões proxy que ocorreram e que ainda estão em execução. Junto da path da URI, deve ser informado qual protocolo desejado</p> <ul> <li>ssh</li> <li>sshweb</li> <li>jumpserver</li> <li>rpd</li> <li>rdpweb</li> <li>rdpgate</li> <li>all</li> </ul>"
+      "parameters":
+        -
+          "name": "protocol_type"
+          "in": "path"
+          "schema":
+            "type": "string"
+          "required": true
+      "responses":
+        "200":
+          "description": "Successful response"
+          "content":
+            "application/json": {}
+  "/iso/coge/risco/{risk_type}":
+    "get":
+      "tags":
+        - "Dashboard"
+      "summary": "Risk"
+      "description": "<p>Retorna as sessões proxy e custódias de senha que sejam suspeitas. Junto da path da URI, deve ser informado qual tipo de operação desejado</p> <ul> <li>RISK_TYPE</li> <ul> <li>all</li> <li>consultas</li> <li>acessos</li> </ul> <li>PROTOCOL PARAM</li> <ul> <li>ssh</li> <li>sshweb</li> <li>jumpserver</li> <li>rdp</li> <li>rdpweb</li> <li>rdpgate</li> <li>telnet</li> <li>vnchttp</li> <li>sql</li> <li>all</li> </ul> </ul>"
+      "parameters":
+        -
+          "name": "risk_type"
+          "in": "path"
+          "schema":
+            "type": "string"
+          "required": true
+      "responses":
+        "200":
+          "description": "Successful response"
+          "content":
+            "application/json": {}
+  "/iso/coge/credenciais/{credential_type}":
+    "get":
+      "tags":
+        - "Dashboard"
+      "summary": "Credentials"
+      "description": "<p>Retorna o status das credenciais geridas pelo senhasegura® . Para realizar a consulta é necessário fornecer o estado desejado</p> <ul> <li>all</li> <li>expiradas</li> <li>utilizacao</li> </ul>"
+      "parameters":
+        -
+          "name": "credential_type"
+          "in": "path"
+          "schema":
+            "type": "string"
+          "required": true
+      "responses":
+        "200":
+          "description": "Successful response"
+          "content":
+            "application/json": {}
+  "/iso/certificate/request/list":
+    "get":
+      "tags":
+        - "Certificate Management"
+      "summary": "List All Requests"
+      "responses":
+        "200":
+          "description": "Successful response"
+          "content":
+            "application/json": {}
+  "/iso/certificado/listar/{certificate_id}":
+    "get":
+      "tags":
+        - "Certificate Management"
+      "summary": "List All Certificates"
+      "parameters":
+        -
+          "name": "certificate_id"
+          "in": "path"
+          "schema":
+            "type": "string"
+          "required": true
+      "responses":
+        "200":
+          "description": "Successful response"
+          "content":
+            "application/json": {}
+  "/iso/cert/publicar/listar/{publishing_id}":
+    "get":
+      "tags":
+        - "Certificate Management"
+      "summary": "List All Publishings"
+      "parameters":
+        -
+          "name": "publishing_id"
+          "in": "path"
+          "schema":
+            "type": "string"
+          "required": true
+      "responses":
+        "200":
+          "description": "Successful response"
+          "content":
+            "application/json": {}
+  "/iso/certificado/request/assinar/{request_id}":
+    "get":
+      "tags":
+        - "Certificate Management"
+      "summary": "Sign Request"
+      "parameters":
+        -
+          "name": "codigo_request"
+          "in": "query"
+          "schema":
+            "type": "string"
+          "description": "Código do request a ser assinado."
+          "example": "{{request_id}}"
+        -
+          "name": "auto_assinado"
+          "in": "query"
+          "schema":
+            "type": "integer"
+          "description": "Indica se é auto-assinado."
+          "example": "0"
+        -
+          "name": "ca"
+          "in": "query"
+          "schema":
+            "type": "integer"
+          "description": "Código da CA responsável pela assinatura request."
+          "example": "1"
+        -
+          "name": "motivo"
+          "in": "query"
+          "schema":
+            "type": "integer"
+          "description": "Código do motivo da assinatura. Deverá informar um código de um motivo cadastrado no senhasegura®"
+          "example": "4"
+        -
+          "name": "request_id"
+          "in": "path"
+          "schema":
+            "type": "string"
+          "required": true
+      "responses":
+        "200":
+          "description": "Successful response"
+          "content":
+            "application/json": {}
+  "/iso/certificado/request/{request_id}":
+    "post":
+      "tags":
+        - "Certificate Management"
+      "summary": "Create/Update Request"
+      "requestBody":
+        "content": {}
+      "parameters":
+        -
+          "name": "request_id"
+          "in": "path"
+          "schema":
+            "type": "string"
+          "required": true
+      "responses":
+        "200":
+          "description": "Successful response"
+          "content":
+            "application/json": {}
+  "/iso/cert/publicar":
+    "post":
+      "tags":
+        - "Certificate Management"
+      "summary": "Publish Certificate"
+      "requestBody":
+        "content": {}
+      "parameters":
+        -
+          "name": "codigo_certificado"
+          "in": "query"
+          "schema":
+            "type": "string"
+          "description": "Código do certificado a ser publicado."
+          "example": "{{certificate_id}}"
+        -
+          "name": "codigo_perfil_publicacao"
+          "in": "query"
+          "schema":
+            "type": "integer"
+          "description": "Código do perfil de publicação. Será utilizado um perfil de publicação previamente cadastrado no senhasegura®."
+          "example": "1"
+        -
+          "name": "motivo"
+          "in": "query"
+          "schema":
+            "type": "integer"
+          "description": "Código do motivo da publicação. Deverá informar um código de um motivo cadastrado no senhasegura®."
+          "example": "4"
+        -
+          "name": "dispositivos"
+          "in": "query"
+          "schema":
+            "type": "string"
+          "description": "Array com os códigos dos dispositivos onde o certificado deverá ser publicado"
+          "example": "[windows-ad]"
+      "responses":
+        "200":
+          "description": "Successful response"
+          "content":
+            "application/json": {}
+  "/iso/cert/perfil/apache":
+    "post":
+      "tags":
+        - "Certificate Management"
+      "summary": "Create/Update Publishing Profile Apache"
+      "requestBody":
+        "content": {}
+      "parameters":
+        -
+          "name": "nome_perfil"
+          "in": "query"
+          "schema":
+            "type": "string"
+          "description": "Nome do perfil a ser criado."
+          "example": "api-test-profile"
+        -
+          "name": "codigo_credencial"
+          "in": "query"
+          "schema":
+            "type": "string"
+          "description": "Código da credencial a ser utilizada na publicação. Será utilizada uma credencial previamente cadastrada no cofre. Esta informação será obrigatória caso não seja informado um username."
+          "example": "{{credential_id}}"
+        -
+          "name": "dispositivos"
+          "in": "query"
+          "schema":
+            "type": "string"
+          "description": "Array com os códigos dos dispositivos onde o certificado deverá ser publicado"
+          "example": "[centos]"
+      "responses":
+        "200":
+          "description": "Successful response"
+          "content":
+            "application/json": {}
+  "/iso/cert/perfil/iis":
+    "post":
+      "tags":
+        - "Certificate Management"
+      "summary": "Create/Update Publishing Profile IIS"
+      "requestBody":
+        "content": {}
+      "parameters":
+        -
+          "name": "nome_perfil"
+          "in": "query"
+          "schema":
+            "type": "string"
+          "description": "Nome do perfil a ser criado."
+          "example": "api-test-profile"
+        -
+          "name": "codigo_credencial"
+          "in": "query"
+          "schema":
+            "type": "string"
+          "description": "Código da credencial a ser utilizada na publicação. Será utilizada uma credencial previamente cadastrada no cofre. Esta informação será obrigatória caso não seja informado um username."
+          "example": "{{credential_id}}"
+        -
+          "name": "dispositivos"
+          "in": "query"
+          "schema":
+            "type": "string"
+          "description": "Array com os códigos dos dispositivos onde o certificado deverá ser publicado"
+          "example": "[windows-ad]"
+      "responses":
+        "200":
+          "description": "Successful response"
+          "content":
+            "application/json": {}
+  "/iso/cert/perfil/bigip":
+    "post":
+      "tags":
+        - "Certificate Management"
+      "summary": "Create/Update Publishing Profile F5 BigIP"
+      "requestBody":
+        "content": {}
+      "parameters":
+        -
+          "name": "nome_perfil"
+          "in": "query"
+          "schema":
+            "type": "string"
+          "description": "Nome do perfil a ser criado."
+          "example": "api-test-profile"
+        -
+          "name": "codigo_credencial"
+          "in": "query"
+          "schema":
+            "type": "string"
+          "description": "Código da credencial a ser utilizada na publicação. Será utilizada uma credencial previamente cadastrada no cofre. Esta informação será obrigatória caso não seja informado um username."
+          "example": "{{credential_id}}"
+        -
+          "name": "dispositivos"
+          "in": "query"
+          "schema":
+            "type": "string"
+          "description": "Array com os códigos dos dispositivos onde o certificado deverá ser publicado"
+          "example": "[f5-bigip]"
+      "responses":
+        "200":
+          "description": "Successful response"
+          "content":
+            "application/json": {}
+  "/iso/cert/perfil/was":
+    "post":
+      "tags":
+        - "Certificate Management"
+      "summary": "Create/Update Publishing Profile WebSphere WAS"
+      "requestBody":
+        "content": {}
+      "parameters":
+        -
+          "name": "nome_perfil"
+          "in": "query"
+          "schema":
+            "type": "string"
+          "description": "Nome do perfil a ser criado."
+          "example": "api-test-profile"
+        -
+          "name": "key_db_path"
+          "in": "query"
+          "schema":
+            "type": "string"
+          "description": "Endereço e nome da Key Database."
+        -
+          "name": "key_db_password"
+          "in": "query"
+          "schema":
+            "type": "string"
+          "description": "Senha do servidor."
+        -
+          "name": "label"
+          "in": "query"
+          "schema":
+            "type": "string"
+          "description": "Label do servidor."
+        -
+          "name": "codigo_credencial"
+          "in": "query"
+          "schema":
+            "type": "string"
+          "description": "Código da credencial a ser utilizada na publicação. Será utilizada uma credencial previamente cadastrada no cofre. Esta informação será obrigatória caso não seja informado um username."
+          "example": "{{credential_id}}"
+        -
+          "name": "dispositivos"
+          "in": "query"
+          "schema":
+            "type": "string"
+          "description": "Array com os códigos dos dispositivos onde o certificado deverá ser publicado"
+          "example": "[websphere-was]"
+      "responses":
+        "200":
+          "description": "Successful response"
+          "content":
+            "application/json": {}
+  "/iso/dapp/application":
+    "get":
+      "tags":
+        - "DevOps Secret Management"
+      "summary": "List All Secrets"
+      "description": "Get application details and secrets linked to the authorization."
+      "responses":
+        "200":
+          "description": "Successful response"
+          "content":
+            "application/json": {}
+    "post":
+      "tags":
+        - "Não documentado"
+      "summary": "DAPP - Application"
+      "description": "Create a new Application/Authorization on DAPP module."
+      "requestBody":
+        "content":
+          "multipart/form-data":
+            "schema":
+              "type": "object"
+              "properties":
+                "application":
+                  "type": "string"
+                  "example": "senhanadasegura"
+                "system":
+                  "type": "string"
+                  "example": "Demonstration"
+                "environment":
+                  "type": "string"
+                  "example": "Homologation"
+                "unique_key":
+                  "type": "string"
+                  "example": "{{$timestamp}}"
+      "responses":
+        "200":
+          "description": "Successful response"
+          "content":
+            "application/json": {}
+  "/iso/coe/dapp/provision":
+    "post":
+      "tags":
+        - "DevOps Secret Management"
+      "summary": "Create Secret"
+      "requestBody":
+        "content":
+          "application/json":
+            "schema":
+              "type": "object"
+              "example":
+                "pod_name": "pod_name_test"
+                "deploy": "deploy_test"
+                "namespace": "namespace_test"
+      "responses":
+        "200":
+          "description": "Successful response"
+          "content":
+            "application/json": {}
+  "/iso/dapp/deprovision":
+    "post":
+      "tags":
+        - "DevOps Secret Management"
+      "summary": "Delete Secret"
+      "requestBody":
+        "content": {}
+      "parameters":
+        -
+          "name": "pod_name"
+          "in": "query"
+          "schema":
+            "type": "string"
+          "description": "Nome da cápsula que irá usar a credencial."
+          "example": "api-test-pod"
+        -
+          "name": "deploy"
+          "in": "query"
+          "schema":
+            "type": "string"
+          "description": "Nome do deploy que irá usar a credencial."
+          "example": "api-test-deploy"
+        -
+          "name": "namespace"
+          "in": "query"
+          "schema":
+            "type": "string"
+          "description": "Namespace do contentor que usará a credencial."
+          "example": "api-test-namespace"
+        -
+          "name": "secret_id"
+          "in": "query"
+          "schema":
+            "type": "string"
+          "description": "ID do segredo"
+          "example": "{{secret_id}}"
+      "responses":
+        "200":
+          "description": "Successful response"
+          "content":
+            "application/json": {}
+  "/iso/cicd/variables":
+    "post":
+      "tags":
+        - "Não documentado"
+      "summary": "CICD - Variables"
+      "description": "Envia variáveis para o módulo CICD e, se usado mapeamento senhasegura, essas variáveis serão salvas como um segredo."
+      "requestBody":
+        "content":
+          "multipart/form-data":
+            "schema":
+              "type": "object"
+              "properties":
+                "env":
+                  "type": "string"
+                  "example": "{{env}}"
+                "map":
+                  "type": "string"
+                  "example": "{{map}}"
+      "responses":
+        "200":
+          "description": "Successful response"
+          "content":
+            "application/json": {}
+  "/iso/sctm/secret":
+    "post":
+      "tags":
+        - "Não documentado"
+      "summary": "SCTM - Secret"
+      "requestBody":
+        "content":
+          "multipart/form-data":
+            "schema":
+              "type": "object"
+              "properties":
+                "data":
+                  "type": "string"
+                  "example": "{{secretData}}"
+      "responses":
+        "200":
+          "description": "Successful response"
+          "content":
+            "application/json": {}
+  "/iso/dapp/application/authorization":
+    "delete":
+      "tags":
+        - "Não documentado"
+      "summary": "DAPP - Authorization"
+      "description": "Inativa uma autorização e, se o provisionamento automático estiver habilitado nas configurações da aplicação, toda a cadeia de autorização (segredos, chaves de acesso, credenciais) também serão desprovisionadas."
+      "responses":
+        "200":
+          "description": "Successful response"
+          "content":
+            "application/json": {}
+  "/iso/user/related/1":
+    "get":
+      "tags":
+        - "User Management"
+      "summary": "Retrieve a related user"
+      "security":
+        -
+          "oauth2Auth": []
+      "responses":
+        "200":
+          "description": "Successful response"
+          "content":
+            "application/json": {}
+  "/iso/user/related":
+    "get":
+      "tags":
+        - "User Management"
+      "summary": "Retrieve all related users"
+      "responses":
+        "200":
+          "description": "Successful response"
+          "content":
+            "application/json": {}
+    "post":
+      "tags":
+        - "User Management"
+      "summary": "Create related user"
+      "requestBody":
+        "content":
+          "multipart/form-data":
+            "schema":
+              "type": "object"
+              "properties":
+                "name":
+                  "type": "string"
+                  "example": "dedinhas"
+                "username":
+                  "type": "string"
+                  "example": "dalmeida"
+      "responses":
+        "200":
+          "description": "Successful response"
+          "content":
+            "application/json": {}
+    "put":
+      "tags":
+        - "User Management"
+      "summary": "Update related user"
+      "requestBody":
+        "content":
+          "application/json":
+            "schema":
+              "type": "object"
+              "example":
+                "id": 8
+                "name": "dedão"
+                "username": "dalmeida"
+      "responses":
+        "200":
+          "description": "Successful response"
+          "content":
+            "application/json": {}
+  "/iso/user/related/8":
+    "delete":
+      "tags":
+        - "User Management"
+      "summary": "Delete related user"
+      "responses":
+        "200":
+          "description": "Successful response"
+          "content":
+            "application/json": {}
+  "/iso/mysafe/secretapi":
+    "get":
+      "tags":
+        - "MySafe > API Secret"
+      "summary": "get all api"
+      "responses":
+        "200":
+          "description": "Successful response"
+          "content":
+            "application/json": {}
+    "post":
+      "tags":
+        - "MySafe > API Secret"
+      "summary": "create api"
+      "requestBody":
+        "content":
+          "application/json":
+            "schema":
+              "type": "object"
+              "example":
+                "name": "chave nova 2"
+                "note": "testeeqwe&&&&&&&q final note"
+                "password": "testeeqwe&&&&&&&q final pass"
+                "url": "testeeqwe&&&&&&&q final url"
+                "username": "senha username"
+                "client_id": "testeeqwe&&&&&&&q final client_ID"
+                "client_secret": "testeeqwe&&&&&&&q final client_secret"
+                "tags": "tag"
+                "notes": "notes"
+                "method": "testeeqwe&&&&&&&q final metodo"
+                "users_allowed":
+                  -
+                    "username": "Admin"
+                    "can_edit": true
+                  -
+                    "username": "malu"
+                    "can_edit": true
+                  -
+                    "username": "mcorrea"
+                    "can_edit": true
+                "groups_allowed":
+                  -
+                    "name": "user group teste validação"
+                    "can_edit": true
+                  -
+                    "name": "user group public"
+                    "can_edit": true
+                  -
+                    "name": "user group 1"
+                    "can_edit": true
+                  -
+                    "name": "mvlt grupo 1"
+                    "can_edit": true
+                  -
+                    "name": "urubu"
+                    "can_edit": true
+                  -
+                    "name": "grupo A"
+                    "can_edit": true
+      "responses":
+        "200":
+          "description": "Successful response"
+          "content":
+            "application/json": {}
+  "/iso/mysafe/secretapi/3":
+    "get":
+      "tags":
+        - "MySafe > API Secret"
+      "summary": "get one api"
+      "responses":
+        "200":
+          "description": "Successful response"
+          "content":
+            "application/json": {}
+  "/iso/mysafe/secretapi/update/1":
+    "put":
+      "tags":
+        - "MySafe > API Secret"
+      "summary": "update api"
+      "requestBody":
+        "content":
+          "application/json":
+            "schema":
+              "type": "object"
+              "example":
+                "name": "chave 95"
+                "url": "nova urlwqw"
+                "client_id": "1"
+                "client_secret": "edit"
+                "identifier_code": "95"
+                "method": "posst"
+                "users_allowed":
+                  -
+                    "username": "mcorrea"
+                    "can_edit": true
+                "groups_allowed": []
+      "responses":
+        "200":
+          "description": "Successful response"
+          "content":
+            "application/json": {}
+  "/iso/mysafe/note":
+    "post":
+      "tags":
+        - "MySafe > Note"
+      "summary": "active note"
+      "requestBody":
+        "content":
+          "application/json":
+            "schema":
+              "type": "object"
+              "example":
+                "name": "nota"
+                "note": "umanota"
+                "users_allowed":
+                  -
+                    "username": "Admin"
+                    "can_edit": true
+                  -
+                    "username": "malu"
+                    "can_edit": true
+                "groups_allowed":
+                  -
+                    "name": "grupo1"
+                    "can_edit": true
+                  -
+                    "name": "grupo2"
+                    "can_edit": true
+      "responses":
+        "200":
+          "description": "Successful response"
+          "content":
+            "application/json": {}
+    "get":
+      "tags":
+        - "MySafe > Note"
+      "summary": "get all note"
+      "responses":
+        "200":
+          "description": "Successful response"
+          "content":
+            "application/json": {}
+  "/iso/mysafe/note/inactive/3":
+    "post":
+      "tags":
+        - "MySafe > Note"
+      "summary": "inactive note"
+      "requestBody":
+        "content":
+          "application/json":
+            "schema":
+              "type": "object"
+              "example":
+                "name": "nota"
+                "note": "umanota"
+                "users_allowed":
+                  -
+                    "username": "Admin"
+                    "can_edit": true
+                  -
+                    "username": "malu"
+                    "can_edit": true
+                "groups_allowed":
+                  -
+                    "name": "grupo1"
+                    "can_edit": true
+                  -
+                    "name": "grupo2"
+                    "can_edit": true
+      "responses":
+        "200":
+          "description": "Successful response"
+          "content":
+            "application/json": {}
+  "/api/mysafe/password":
+    "get":
+      "tags":
+        - "MySafe > Password"
+      "summary": "get all password"
+      "responses":
+        "200":
+          "description": "Successful response"
+          "content":
+            "application/json": {}
+  "/iso/mysafe/password":
+    "get":
+      "tags":
+        - "MySafe > Password"
+      "summary": "get one password"
+      "responses":
+        "200":
+          "description": "Successful response"
+          "content":
+            "application/json": {}
+    "post":
+      "tags":
+        - "MySafe > Password"
+      "summary": "create password"
+      "description": "Create related user\r\n"
+      "requestBody":
+        "content":
+          "application/json":
+            "schema":
+              "type": "object"
+              "example":
+                "name": "pass"
+                "username": "npass"
+                "url": "pass"
+                "password": "pass"
+                "secret_key": "JBSWY3DPEHPK3PXP"
+                "notes": "novaaaa&&&&&¨&aaaaaaaa"
+                "tags": "novaaaa&&&&&¨&aaaaaaaa, novaaaa&&&&&¨&aaaaaaaa"
+                "users_allowed":
+                  -
+                    "username": "Admin"
+                  -
+                    "username": "malu"
+                "groups_allowed":
+                  -
+                    "name": "meu grupo x"
+                    "can_edit": false
+      "responses":
+        "200":
+          "description": "Successful response"
+          "content":
+            "application/json": {}
+  "/iso/mysafe/password/update/10":
+    "put":
+      "tags":
+        - "MySafe > Password"
+      "summary": "update password"
+      "description": "Create related user\r\n"
+      "requestBody":
+        "content":
+          "application/json":
+            "schema":
+              "type": "object"
+              "example":
+                "name": "novaaaa&&&&&¨&aaaaaaaa"
+                "username": "novaaaa&&&&&¨&aaaaaaaa"
+                "url": "novaaaa&&&&&¨&aaaaaaaa"
+                "password": "novaaaa&&&&&¨&aaaaaaaa"
+                "notes": ""
+                "tags": ""
+                "secret_key": ""
+                "groups_allowed":
+                  -
+                    "name": "grupo privado teste"
+                    "can_edit": false
+      "responses":
+        "200":
+          "description": "Successful response"
+          "content":
+            "application/json": {}
+  "/iso/mysafe/note/7":
+    "get":
+      "tags":
+        - "MySafe > Note"
+      "summary": "get one note"
+      "responses":
+        "200":
+          "description": "Successful response"
+          "content":
+            "application/json": {}
+  "/iso/mysafe/note/update/1":
+    "put":
+      "tags":
+        - "MySafe > Note"
+      "summary": "update note"
+      "requestBody":
+        "content":
+          "application/json":
+            "schema":
+              "type": "object"
+              "example":
+                "name": "Mais uma ultima nota"
+                "note": "minha notaaaaa"
+                "tags": ""
+                "users_allowed":
+                  -
+                    "username": "mcorrea"
+                    "can_edit": true
+                "groups_allowed":
+                  -
+                    "name": "grupo publico 1"
+                    "can_edit": true
+                  -
+                    "name": "grupo sem acesso3"
+                    "can_edit": true
+                  -
+                    "name": "grupo publico com acesso"
+                    "can_edit": true
+                  -
+                    "name": "grupo publico sem acesso2"
+                    "can_edit": true
+      "responses":
+        "200":
+          "description": "Successful response"
+          "content":
+            "application/json": {}
