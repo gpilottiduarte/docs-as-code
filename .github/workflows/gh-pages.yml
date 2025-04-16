@@ -20,7 +20,6 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-          persist-credentials: true
       
       - name: Setup Node.js
         uses: actions/setup-node@v3
@@ -30,20 +29,12 @@ jobs:
       - name: Install serve
         run: npm install -g serve
       
-      - name: Initialize Git
-        run: |
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "actions@github.com"
-          git init
-          git remote add origin https://github.com/${{ github.repository }}.git
-      
-      # Deploy para GitHub Pages - site principal
       - name: Deploy to production
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./docs  # ou o diretório que você está usando
-          destination_dir: ./  # publica na raiz de gh-pages
+          publish_dir: ./docs
+          destination_dir: ./
           exclude_assets: '.github,node_modules,.gitignore,.git,package*.json'
 
   # Job para criar preview - executa quando PR aberta/atualizada
@@ -57,7 +48,6 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.ref }}
           fetch-depth: 0
-          persist-credentials: true
       
       - name: Setup Node.js
         uses: actions/setup-node@v3
@@ -67,14 +57,6 @@ jobs:
       - name: Install serve
         run: npm install -g serve
       
-      - name: Initialize Git
-        run: |
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "actions@github.com"
-          git init
-          git remote add origin https://github.com/${{ github.repository }}.git
-      
-      # Adiciona barra de notificação de preview nos arquivos HTML
       - name: Add preview notification
         run: |
           cat > preview-banner.html << 'EOL'
@@ -89,18 +71,17 @@ jobs:
           
           rm preview-banner.html
       
-      # Gera ID único para o ambiente baseado no número da PR
       - name: Set environment name
         run: echo "PREVIEW_ID=pr-${{ github.event.pull_request.number }}" >> $GITHUB_ENV
       
-      # Deploy para GitHub Pages em um subdiretório para a PR
       - name: Deploy to preview
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./docs  # ou o diretório que você está usando
+          publish_dir: ./docs
           destination_dir: previews/${{ env.PREVIEW_ID }}
           exclude_assets: '.github,node_modules,.gitignore,.git,package*.json'
+          force: true
       
       # Adiciona comentário na PR com o link para a preview
       - name: Comment on PR
@@ -150,30 +131,21 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-          persist-credentials: true
       
-      - name: Initialize Git
-        run: |
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "actions@github.com"
-          git init
-          git remote add origin https://github.com/${{ github.repository }}.git
-      
-      # Cria diretório vazio para substituir a preview
       - name: Create empty directory
         run: |
           mkdir -p empty
           touch empty/.nojekyll
           echo "<html><body style='font-family: Arial, sans-serif; text-align: center; padding: 50px;'><h1>Preview Removida</h1><p>Esta preview foi removida porque a PR #${{ github.event.pull_request.number }} foi fechada.</p><p><a href='https://github.com/${{ github.repository }}'>Voltar para o repositório</a></p></body></html>" > empty/index.html
       
-      # Remove a preview substituindo com diretório vazio
       - name: Remove PR Preview
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./empty
           destination_dir: previews/pr-${{ github.event.pull_request.number }}
-          keep_files: true  # Mantém arquivos existentes que não serão substituídos
+          keep_files: true
+          force: true
       
       # Adiciona comentário informando que a preview foi removida
       - name: Comment on closed PR
