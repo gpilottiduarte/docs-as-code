@@ -1,0 +1,7 @@
+extends: existence
+message: "Use negrito para nomes de produtos, módulos, botões e títulos de janelas"
+level: warning
+scope: text
+tokens:
+  - 'senhasegura(?![*_])'
+  - 'DevOps Secret Manager(?![*_])'

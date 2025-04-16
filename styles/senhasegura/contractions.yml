@@ -1,0 +1,9 @@
+extends: substitution
+message: "Em inglês formal, evite contrações. Use '%s'"
+level: warning
+ignorecase: true
+swap:
+  "isn't": "is not"
+  "don't": "do not"
+  "won't": "will not"
+  "can't": "cannot"

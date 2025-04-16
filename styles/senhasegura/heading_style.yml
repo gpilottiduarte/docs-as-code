@@ -1,0 +1,6 @@
+extends: capitalization
+message: "Títulos devem usar capitalização adequada"
+level: warning
+scope: heading
+match: $title
+style: AP

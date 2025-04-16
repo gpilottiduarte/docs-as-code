@@ -1,0 +1,6 @@
+extends: existence
+message: "Códigos devem usar code fences (```)"
+level: error
+scope: raw
+tokens:
+  - '`[^`]+`'

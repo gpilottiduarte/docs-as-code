@@ -1,0 +1,13 @@
+extends: existence
+message: "O termo '%s' não é recomendado. Consulte o guia de estilo para alternativas."
+level: error
+ignorecase: true
+tokens:
+  - '/reject.txt'
+
+extends: existence
+message: "Use apenas termos aprovados. '%s' não está na lista de termos aceitos."
+level: warning
+ignorecase: true
+tokens:
+  - '!/accept.txt'

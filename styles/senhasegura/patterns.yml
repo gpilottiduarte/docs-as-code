@@ -1,0 +1,81 @@
+# Validação de code fences
+extends: existence
+message: "Blocos de código devem usar três crases (```) e especificar a linguagem"
+level: error
+scope: raw
+tokens:
+  - '```(?![a-z]+\n)'
+---
+# Validação de links
+extends: existence
+message: "Links devem usar o formato correto [texto](url)"
+level: warning
+scope: text
+tokens:
+  - '(?<!\\[)[^\\]]+\\]\\([^\\)]+\\)'
+  - '\\[[^\\]]*\\](?!\\()'
+  - '\\[[^\\]]*\\]\\([^\\)]*$'
+---
+# Validação de numeração em listas
+extends: existence
+message: "Listas numeradas devem começar com '1.'"
+level: warning
+scope: text
+tokens:
+  - '^\d+\.\s'
+---
+# Validação de avisos e alertas
+extends: existence
+message: "Avisos devem começar com 'Atenção:' ou 'Alerta!'"
+level: warning
+scope: text
+tokens:
+  - '^(?!Atenção:|Alerta!)'
+  - '^(AVISO|CUIDADO|IMPORTANTE):'
+---
+# Validação de extensões de arquivo
+extends: existence
+message: "Extensões de arquivo devem usar code fences"
+level: warning
+scope: text
+tokens:
+  - '\.[a-z]+\b(?!`)'
+---
+# Validação de caminhos de arquivo
+extends: existence
+message: "Caminhos de arquivo devem usar code fences"
+level: warning
+scope: text
+tokens:
+  - '(?<!`)(([A-Za-z]:\\|\/)[^\s`]+)(?!`)'
+---
+# Validação de versões
+extends: existence
+message: "Versões devem seguir o formato 'Versão X - Nome'"
+level: error
+scope: text
+tokens:
+  - '^(?!Versão \d+ - [A-Za-z\s]+$).*$'
+---
+# Validação de datas
+extends: existence
+message: "Datas devem seguir o formato 'Mês DD, YYYY'"
+level: warning
+scope: text
+tokens:
+  - '(?<!(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+\d{1,2},\s+\d{4})'
+---
+# Validação de itálico
+extends: existence
+message: "Palavras estrangeiras devem estar em itálico"
+level: warning
+scope: text
+tokens:
+  - '\b(?<!_)software(?!_)\b'
+  - '\b(?<!_)hardware(?!_)\b'
+  - '\b(?<!_)backup(?!_)\b'
+  - '\b(?<!_)login(?!_)\b'
+  - '\b(?<!_)logout(?!_)\b'
+  - '\b(?<!_)update(?!_)\b'
+  - '\b(?<!_)download(?!_)\b'
+  - '\b(?<!_)upload(?!_)\b'

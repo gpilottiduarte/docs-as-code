@@ -1,0 +1,6 @@
+extends: existence
+message: "Use o artigo apropriado antes de nomes de produtos"
+level: warning
+tokens:
+  - 'Sobre Citrix'
+  - 'Usando senhasegura'

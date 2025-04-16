@@ -1,0 +1,90 @@
+# Verificação de módulos senhasegura
+extends: substitution
+message: "Use o nome correto do módulo: '%s'"
+level: error
+ignorecase: false
+swap:
+  "devops manager": "DevOps Secret Manager"
+  "password manager": "Password Safe"
+  "pam": "PAM"
+  "mfa": "MFA"
+  "certificate manager": "Certificate Manager"
+
+---
+# Verificação de interfaces
+extends: existence
+message: "Descreva a interface corretamente usando 'Clique em' ou 'Selecione'"
+level: warning
+tokens:
+  - "aperte"
+  - "pressione"
+  - "escolha"
+
+---
+# Validação de campos obrigatórios
+extends: existence
+message: "Campo obrigatório deve ser marcado com (*)"
+level: error
+scope: text
+tokens:
+  - "(?<!\\*)(Nome|Login|Senha|Grupo|Perfil):\\s"
+
+---
+# Verificação de termos do produto
+extends: substitution
+message: "Use a nomenclatura correta: '%s'"
+level: error
+ignorecase: true
+swap:
+  "cofre": "Password Safe"
+  "aprovações": "Aprovações pendentes"
+  "usuários": "Pessoas usuárias"
+  "permissões": "Controle de acesso"
+  "credenciais": "Credenciais seguras"
+
+---
+# Verificação de elementos de interface
+extends: existence
+message: "Use negrito (**) para elementos de interface"
+level: warning
+scope: text
+tokens:
+  - "(?<!\\*\\*)(Salvar|Cancelar|Editar|Excluir|Aprovar|Reprovar)(?!\\*\\*)"
+
+---
+# Verificação de status
+extends: substitution
+message: "Use o status correto: '%s'"
+level: error
+ignorecase: true
+swap:
+  "aguardando": "Pendente"
+  "aceito": "Aprovado"
+  "rejeitado": "Reprovado"
+
+---
+# Verificação de caminhos de navegação
+extends: existence
+message: "Use '>' para separar níveis de navegação"
+level: warning
+scope: text
+tokens:
+  - "(?<![>])(Configurações|Administração|Credenciais|Relatórios)\\s+[^>]"
+
+---
+# Verificação de requisitos
+extends: existence
+message: "Liste todos os requisitos no início do documento"
+level: warning
+scope: heading
+tokens:
+  - "(?<!Requisitos)(Antes de começar|Pré-requisitos)"
+
+---
+# Verificação de procedimentos
+extends: existence
+message: "Comece procedimentos com verbos no infinitivo"
+level: warning
+scope: text
+tokens:
+  - "^(?!Configurar|Criar|Editar|Excluir|Adicionar|Remover|Gerenciar)"

@@ -1,0 +1,20 @@
+# Para comprimento de sentenças
+extends: occurrence
+message: "Sentenças devem ter no máximo 30 palavras"
+level: suggestion
+scope: sentence
+max: 30
+---
+# Para comprimento de parágrafos
+extends: occurrence
+message: "Parágrafos devem ter no máximo 100 palavras"
+level: suggestion
+scope: paragraph
+max: 100
+---
+# Para comprimento de palavras
+extends: occurrence
+message: "Palavras devem ter no máximo 30 caracteres"
+level: warning
+scope: text
+max: 30

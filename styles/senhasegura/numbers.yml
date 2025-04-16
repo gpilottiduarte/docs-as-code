@@ -1,0 +1,14 @@
+extends: existence
+message: "Use representação numérica para todos os números"
+level: suggestion
+tokens:
+  - 'um'
+  - 'dois'
+  - 'três'
+  - 'quatro'
+  - 'cinco'
+  - 'seis'
+  - 'sete'
+  - 'oito'
+  - 'nove'
+  - 'dez'

@@ -1,0 +1,7 @@
+extends: substitution
+message: "Use a terminologia recomendada: '%s'"
+level: warning
+ignorecase: true
+swap:
+  "identificado pelo ícone": "representado pelo ícone"
+  "este artigo": "este documento"

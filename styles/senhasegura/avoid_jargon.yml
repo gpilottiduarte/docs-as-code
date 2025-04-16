@@ -1,0 +1,10 @@
+extends: existence
+message: "Evite usar jargões técnicos sem explicação"
+level: warning
+ignorecase: true
+tokens:
+  - overhead
+  - backend
+  - frontend
+  - deploy
+  - debug
