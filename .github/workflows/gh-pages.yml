@@ -27,8 +27,15 @@ jobs:
         with:
           node-version: '16'
       
-      - name: Install serve (para consistência)
+      - name: Install serve
         run: npm install -g serve
+      
+      - name: Initialize Git
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git init
+          git remote add origin https://github.com/${{ github.repository }}.git
       
       # Deploy para GitHub Pages - site principal
       - name: Deploy to production
@@ -60,10 +67,16 @@ jobs:
       - name: Install serve
         run: npm install -g serve
       
+      - name: Initialize Git
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git init
+          git remote add origin https://github.com/${{ github.repository }}.git
+      
       # Adiciona barra de notificação de preview nos arquivos HTML
       - name: Add preview notification
         run: |
-          # Cria arquivo temporário com a notificação
           cat > preview-banner.html << 'EOL'
           <div style="position:fixed; top:0; left:0; right:0; background:#ff9800; color:white; text-align:center; padding:8px; z-index:9999; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
             🔍 Preview da PR #${{ github.event.pull_request.number }} - 
@@ -71,7 +84,6 @@ jobs:
           </div>
           EOL
           
-          # Adiciona a notificação no topo de cada arquivo HTML
           find . -name "*.html" -type f -exec sed -i '/<body/i <!-- Preview Banner -->' {} \;
           find . -name "*.html" -type f -exec sed -i "/<body[^>]*>/r preview-banner.html" {} \;
           
@@ -139,6 +151,13 @@ jobs:
         with:
           fetch-depth: 0
           persist-credentials: true
+      
+      - name: Initialize Git
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git init
+          git remote add origin https://github.com/${{ github.repository }}.git
       
       # Cria diretório vazio para substituir a preview
       - name: Create empty directory
