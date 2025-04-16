@@ -14,53 +14,73 @@ html, body {
 }
 /* Navbar */
 .navbar {
-    padding: 1rem 2rem;
-    height: 70px;
-    background: #00332E; /* Verde escuro */
+    padding: 0 2rem;
+    height: 80px;
+    background: #00332E;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     position: sticky;
     top: 0;
     z-index: 100;
     color: #ffffff;
+    display: flex;
+    align-items: center;
 }
 .navbar-content {
     display: flex;
     align-items: center;
-    gap: 2rem;
+    gap: 1.5rem;
     max-width: 1400px;
     margin: 0 auto;
     position: relative;
+    width: 100%;
+    height: 100%;
 }
 .company-name {
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: #00E1C4; /* Verde turquesa brilhante */
-    margin-right: auto;
+    text-decoration: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+    height: 100%;
+    padding: 8px 1rem;
 }
 .dropdowns-container {
     display: flex;
-    gap: 1rem;
+    align-items: center;
+    gap: 0.75rem;
+    height: 100%;
 }
 .dropdown {
-    padding: 0.6rem 1.2rem;
+    padding: 0.4rem 2rem 0.4rem 0.8rem; /* Ajustando padding */
     border: 1px solid #00B29A;
-    border-radius: 8px;
-    background: #004D40; /* Verde médio escuro */
+    border-radius: 6px;
+    background: #004D40;
     color: #ffffff;
-    font-size: 0.95rem;
+    font-size: 0.875rem;
     cursor: pointer;
     appearance: none;
     background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2300E1C4' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
     background-repeat: no-repeat;
-    background-position: right 0.8rem center;
-    background-size: 1em;
-    padding-right: 2.5rem;
+    background-position: right 0.5rem center;
+    background-size: 0.875rem;
+    min-width: 120px;
+    max-width: 160px;
+}
+.dropdown:hover {
+    border-color: #00E1C4;
+    background-color: #00594A;
+}
+.dropdown:focus {
+    outline: none;
+    border-color: #00E1C4;
+    box-shadow: 0 0 0 2px rgba(0, 225, 196, 0.2);
 }
 /* Layout principal */
 .container {
     display: grid;
     grid-template-columns: 350px 1fr 300px;
-    height: calc(100vh - 70px);
+    height: calc(100vh - 80px);
     max-width: 1600px;
     margin: 0 auto;
     overflow: hidden;
@@ -230,47 +250,87 @@ p, h1, h2, h3, h4, h5, h6 {
     padding-left: 1.5rem; /* recuo reduzido */
 }
 /* Tabela de conteúdos */
-.toc-container {
-    width: 300px;
-    height: calc(100vh - 70px);
+.toc {
     position: sticky;
-    top: 70px;
-    padding: 1.5rem;
+    top: 2rem;
+    max-height: calc(100vh - 4rem);
     overflow-y: auto;
-    border-left: 1px solid #00B29A;
-    background: #f0faf8; /* Verde bem claro */
+    padding: 1rem;
     border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    background-color: #f8f9fa;
+    width: 300px; /* Largura fixa para garantir consistência */
 }
-.toc-header {
+.toc-title {
+    font-size: 1.1rem;
     font-weight: 600;
+    color: #343a40;
     margin-bottom: 1rem;
-    color: #00766C; /* Verde turquesa médio */
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #e9ecef;
+    position: sticky;
+    top: 0;
+    background: #f8f9fa;
+    z-index: 1;
 }
 .toc-nav {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+    overflow-y: auto;
+    max-height: calc(100vh - 8rem); /* Ajuste para considerar o título e padding */
 }
 .toc-item {
-    color: #006356; /* Verde médio */
+    display: block;
+    padding: 0.5rem 0.75rem;
+    color: #495057;
     text-decoration: none;
+    border-radius: 6px;
     transition: all 0.2s ease;
-    padding: 0.25rem 0;
-    border-left: 2px solid transparent;
+    border-left: 3px solid transparent;
+    margin: 2px 0;
+    line-height: 1.4;
+    word-wrap: break-word;
 }
 .toc-item:hover {
-    color: #00B29A; /* Verde turquesa */
-    border-left-color: #00E1C4; /* Verde turquesa brilhante */
+    background-color: #e9ecef;
+    color: #212529;
+    border-left-color: #adb5bd;
 }
 .toc-item.active {
-    color: #00B29A; /* Verde turquesa */
-    border-left-color: #00E1C4; /* Verde turquesa brilhante */
+    background-color: #e7f5ff;
+    color: #1971c2;
+    border-left-color: #1971c2;
+    font-weight: 500;
 }
-.toc-item.h1 { margin-left: 0; font-size: 1rem; }
-.toc-item.h2 { margin-left: 1rem; font-size: 0.9rem; }
-.toc-item.h3 { margin-left: 2rem; font-size: 0.85rem; }
-
+/* Níveis de indentação */
+.toc-item.h1 {
+    font-weight: 600;
+    margin-left: 0;
+}
+.toc-item.h2 {
+    margin-left: 1rem;
+    font-size: 0.95rem;
+}
+.toc-item.h3 {
+    margin-left: 2rem;
+    font-size: 0.9rem;
+    color: #666;
+}
+/* Estilização da barra de rolagem do TOC */
+.toc::-webkit-scrollbar {
+    width: 6px;
+}
+.toc::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+.toc::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 3px;
+}
+.toc::-webkit-scrollbar-thumb:hover {
+    background: #999;
+}
 /* Estilização dos botões de feedback */
 .feedback-buttons {
     display: flex;
@@ -595,50 +655,56 @@ li::marker {
 
 /* Estilo para o botão de API */
 .api-btn {
-    padding: 0.6rem 1.2rem;
+    padding: 0.4rem 0.8rem;
     border: 1px solid #00B29A;
-    border-radius: 8px;
+    border-radius: 6px;
     background: #004D40;
     color: #ffffff;
-    font-size: 0.95rem;
+    font-size: 0.875rem;
     cursor: pointer;
     text-decoration: none;
     display: flex;
     align-items: center;
     transition: all 0.2s ease;
-    margin-left: 1rem;
+    height: fit-content;
 }
 
 .api-btn:hover {
-    background: #00766C;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    background: #00594A;
+    border-color: #00E1C4;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
 }
 
 .api-btn::before {
     content: '';
     display: inline-block;
-    width: 16px;
-    height: 16px;
-    margin-right: 8px;
+    width: 14px;
+    height: 14px;
+    margin-right: 6px;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='16 18 22 12 16 6'%3E%3C/polyline%3E%3Cpolyline points='8 6 2 12 8 18'%3E%3C/polyline%3E%3C/svg%3E");
     background-size: contain;
     background-repeat: no-repeat;
 }
 
-.company-name {
-    text-decoration: none;
-    cursor: pointer;
+.company-logo {
+    height: auto;
+    max-height: 80px;
+    width: auto;
+    align-items: center;
+    display: block;
+    transition: opacity 0.2s ease;
+    object-fit: contain;
+    margin: auto;
 }
 
-.company-name:hover {
-    color: #ffffff;
+.company-logo:hover {
+    opacity: 0.9;
 }
 
 .search-container {
-    position: relative;
     flex: 1;
     max-width: 500px;
-    margin: 0 20px;
+    margin: 0 auto; /* Centraliza o container de busca */
     z-index: 1000;
 }
 

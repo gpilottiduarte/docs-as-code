@@ -696,13 +696,13 @@ function forceSidebarCollapse() {
       
       // 3. Encontrar e destacar o arquivo atual
       const currentFilePath = currentPath || `${currentVersion}/${currentLanguage}/senhasegura.md`;
-      const items = document.querySelectorAll('.sidebar-item.file');
+        const items = document.querySelectorAll('.sidebar-item.file');
       
-      items.forEach(item => {
-        const path = item.getAttribute('data-path');
+        items.forEach(item => {
+          const path = item.getAttribute('data-path');
         if (path === currentFilePath) {
           // Destacar o arquivo
-          item.classList.add('active');
+            item.classList.add('active');
           
           // Abrir apenas as pastas pai necessárias
           let parent = item.parentElement;
@@ -724,7 +724,7 @@ function forceSidebarCollapse() {
       
       console.log("Barra lateral colapsada com sucesso");
     }, 200); // Um timeout significativo para garantir que isso aconteça por último
-}
+  }
 
 function loadIndexContent() {
     // Caminho para o arquivo senhasegura.md baseado na versão e idioma atuais
@@ -738,10 +738,10 @@ function loadIndexContent() {
     
     // Forçar o colapso da barra lateral
     forceSidebarCollapse();
-    
-    // Atualizar a URL no navegador para indicar que estamos na página inicial
-    const newUrl = `${window.location.origin}${window.location.pathname}`;
-    history.replaceState(null, '', newUrl);
+            
+            // Atualizar a URL no navegador para indicar que estamos na página inicial
+            const newUrl = `${window.location.origin}${window.location.pathname}`;
+            history.replaceState(null, '', newUrl);
 }
 
 // Gerar TOC dinâmica
@@ -762,6 +762,17 @@ function generateTOC() {
         tocItem.href = `#${id}`;
         tocItem.className = `toc-item ${level}`;
         tocItem.textContent = text;
+        
+        // Adicionar evento de clique para prevenir o comportamento padrão
+        tocItem.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetHeading = document.getElementById(id);
+            if (targetHeading) {
+                targetHeading.scrollIntoView({ behavior: 'smooth' });
+                // Atualizar a URL sem recarregar a página
+                history.pushState(null, '', `#${id}`);
+            }
+        });
         
         tocNav.appendChild(tocItem);
     });
