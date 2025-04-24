@@ -3,42 +3,32 @@
 Disable a device in **PAM Core**.
 
 ## Prerequisites
-* Authorization with **access** and **read and write** permission to **PAM Core** granted by the administrator in **A2A**. 
-More information in [How to manage authorizations in A2A](/v4/docs/how-to-manage-authorizations-in-a2a)
-* An enabled device **PAM Core**. 
-More information in [POST | Create device](/v4/docs/api-post-create-device) and [PUT | Enable device](/v4/docs/api-put-enable-device).
+
+* Authorization with **access** and **read and write** permission to **PAM Core** granted by the administrator in **A2A**.\
+  More information in [How to manage authorizations in A2A](../../../../../v4/docs/how-to-manage-authorizations-in-a2a/)
+* An enabled device **PAM Core**.\
+  More information in [POST | Create device](../../../../../v4/docs/api-post-create-device/) and [PUT | Enable device](../../../../../v4/docs/api-put-enable-device/).
 
 ## Request
 
-
-  <code><span style="color:red"> DEL</code></span> `/api/pam/device/[id]`
-
+`DEL` `/api/pam/device/[id]`
 
 ## Request parameters
 
+Send the parameter below in the path of the URL.
 
-Send the parameter below in the <b>path</b> of the URL.
+`id` - int - required - Unique identification code of the device.Note: this value is automatically assigned by Segura in [POST | Create device](../../../../../v4/docs/api-post-create-device/) and is obtained in the response to the [GET | List all devices](../../../../../v4/docs/api-get-list-all-devices/) request.
 
-<summary><code>id</code> - <b>int</b> - <span style="color:red">required</span> - Unique identification code of the device.</summary>
-<b>Note</b>: this value is automatically assigned by Segura in <a href="/v4/docs/api-post-create-device">POST | Create device</a> and is obtained in the response to the <a href="/v4/docs/api-get-list-all-devices">GET | List all devices</a> request.
+### Example request
 
+`DEL` `{{url}}/api/pam/device/5`
 
+## Response
 
- ### Example request
-
-
-
-<code><span style="color:red"> DEL</code></span> `{{url}}/api/pam/device/5`
-  
-  
-  
-  ## Response 
- 
- ```json
+```json
 HTTP/1.1 200 OK
 ```
 
- 
 ```json
 {
     "code": 200,
@@ -58,117 +48,136 @@ HTTP/1.1 200 OK
 ## Errors
 
 <details>
-<summary><b><span style="color:red">400</span> - Bad Request</b></summary>
- 
-* * *
-    
-    
-<b>Message: "1011: Device not found"</b>     
 
-<br><b>Possible cause</b>: The device wasn't found.
-     
-<b>Solution</b>:  check the <code>id</code> used to search for the device and resend the request.
-
-* * *
-    
-    
-<b>Message: "1039: Without PAM Configuration Access permission"</b>  
-<br><b>Possible cause</b>: your authorization doesn’t have permission to disable a device.</p>
-
-<b>Solution</b>: ask the administrator to check your <b>read and write</b> permission to <b>PAM Core</b> resources in <b>A2A</b>.
-
-
-***
-</details>
-
-<details>
-<summary><b><span style="color:red">404</span> - Not Found</b></summary>
-
-***
-<b>Message: "Resource sub not found"</b><br>
-
-<p><b>Possible cause</b>: the URL or the requested resource isn’t correct.<br>
-        
-<b>Solution</b>: check the URL and make sure the parameter is correct.</p>
-
-* * *
-</details>
-
-<details>
-<summary><b><span style="color:red">500</span> - Internal Server Error</b></summary>
-
-***
-    
-<b>Message: "Unexpected error."</b><br>
- 
-<p><b>Possible cause</b>: the error is in the Segura server.<br>
-        
-<b>Solution</b>: contact the support team for more information.</p>
+<summary>400 - Bad Request</summary>
 
 ***
 
-<b>Message: "You are not authorized to access this resource."</b>
+Message: "1011: Device not found"
 
-<p><b>Possible cause</b>: you don’t have the authorization to access this resource.<br>
-        
-<b>Solution</b>: ask the administrator to check your permission to access the <b>PAM Core</b> resources in <b>A2A</b>.</p>
+\
+Possible cause: The device wasn't found.
 
-* * *
- </details>   
+Solution: check the `id` used to search for the device and resend the request.
 
-  
-
-<details>
-<summary><b>Client authentication failed</b></summary>
-
-*** 
-   
-<b>Message: "Client authentication failed."</b>
-<p><b>Possible cause</b>: failure in your application authentication with the Segura server. <br>
-        
-<b>Solution</b>: check the authentication parameters such as <code>Access Token URL</code>, <code>Client ID</code> e <code>Client secret</code> and request a new access token.</p>
- 
-* * *   
-</details>
-     
-  
-
-<details>
-<summary><b>Invalid signature</b></summary>
-
-*** 
-    
-<b>Message: "Invalid signature"</b>
-    
-<p><b>Possible cause</b>: failure in recognizing the URL of the client application.
-        
-<b>Solution</b>: check the URL of the client application and resent the request.</p>
-
-* * * 
-</details>
-     
-
-<details>
-    <summary><b>No route matched with those values</b></summary>
-    
-***   
-    
-<b>Message: "No route matched with those values."</b>
-   <p><b>Possible cause</b>: the authorization header is missing in the API request.<br>
-        
-  <b>Solution</b>: request a new access token.</p>
-   
- * * *
-</details>
- 
-
-<details>
-    <summary><b> Request timed out</b></summary>
-    
 ***
-    
-<b>Message: "Request timed out."</b>
-<p><b>Possible cause</b>: the request time has expired.<br>
-        
-<b>Solution</b>: check the connectivity between the source of the request and the Segura server.</p>
+
+Message: "1039: Without PAM Configuration Access permission"\
+\
+Possible cause: your authorization doesn’t have permission to disable a device.
+
+Solution: ask the administrator to check your read and write permission to PAM Core resources in A2A.
+
+***
+
+</details>
+
+<details>
+
+<summary>404 - Not Found</summary>
+
+***
+
+Message: "Resource sub not found"\
+
+
+Possible cause: the URL or the requested resource isn’t correct.\
+
+
+Solution: check the URL and make sure the parameter is correct.
+
+***
+
+</details>
+
+<details>
+
+<summary>500 - Internal Server Error</summary>
+
+***
+
+Message: "Unexpected error."\
+
+
+Possible cause: the error is in the Segura server.\
+
+
+Solution: contact the support team for more information.
+
+***
+
+Message: "You are not authorized to access this resource."
+
+Possible cause: you don’t have the authorization to access this resource.\
+
+
+Solution: ask the administrator to check your permission to access the PAM Core resources in A2A.
+
+***
+
+</details>
+
+<details>
+
+<summary>Client authentication failed</summary>
+
+***
+
+Message: "Client authentication failed."
+
+Possible cause: failure in your application authentication with the Segura server.\
+
+
+Solution: check the authentication parameters such as `Access Token URL`, `Client ID` e `Client secret` and request a new access token.
+
+***
+
+</details>
+
+<details>
+
+<summary>Invalid signature</summary>
+
+***
+
+Message: "Invalid signature"
+
+Possible cause: failure in recognizing the URL of the client application.
+
+Solution: check the URL of the client application and resent the request.
+
+***
+
+</details>
+
+<details>
+
+<summary>No route matched with those values</summary>
+
+***
+
+Message: "No route matched with those values."
+
+Possible cause: the authorization header is missing in the API request.\
+
+
+Solution: request a new access token.
+
+***
+
+</details>
+
+<details>
+
+<summary>Request timed out</summary>
+
+***
+
+Message: "Request timed out."
+
+Possible cause: the request time has expired.\
+
+
+Solution: check the connectivity between the source of the request and the Segura server.
+
 </details>

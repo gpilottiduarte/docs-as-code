@@ -3,32 +3,30 @@
 Enable an API secret in **MySafe**.
 
 ## Prerequisites
+
 * Permission to edit the API secret.
 * A disabled API secret in **MySafe**.
 
 ## Request
 
-<code><span style="color:orange"> POST</code></span> `/api/mysafe/password/active/[identifier]`
-
-
+`POST` `/api/mysafe/password/active/[identifier]`
 
 ## Request parameters
+
 Send the parameter below in the **path** of the URL.
 
-<summary><code>identifier</code> - <b>int</b> - <span style="color:red">required</span> - API secret unique identification code.</summary>
-<b>Note</b>: this value is automatically assigned by Segura in <a href = "/v4/docs/api-post-create-api-secret">POST | Create API secret</a> and is obtained in the response to the <a href =  "/v4/docs/api-get-list-all-api-secrets">GET | List all API secrets</a>.</summary>
+`identifier` - int - required - API secret unique identification code.Note: this value is automatically assigned by Segura in [POST | Create API secret](../../../../../v4/docs/api-post-create-api-secret/) and is obtained in the response to the [GET | List all API secrets](../../../../../v4/docs/api-get-list-all-api-secrets/).
 
+### Example request
 
-  ### Example request
-<code><span style="color:orange"> POST</code></span> `{{url}}/api/mysafe/secretapi/active/5`
-  
-  
-  
-  ## Response
- ```json
+`POST` `{{url}}/api/mysafe/secretapi/active/5`
+
+## Response
+
+```json
 HTTP/1.1 200 OK
-``` 
- 
+```
+
 ```json
 {
     "code": 200,
@@ -45,83 +43,100 @@ HTTP/1.1 200 OK
 }
 ```
 
-:::(Info) (Info)
-If the API secret is already active, the call will return a `200` response code with the message `Api secret has already been activated`.
+:::(Info) (Info)\
+If the API secret is already active, the call will return a `200` response code with the message `Api secret has already been activated`.\
 :::
- 
+
 ## Errors
- 
+
 <details>
-<summary><b><span style="color:red">400</span> - Bad Request</b>.</summary>
+
+<summary>400 - Bad Request.</summary>
 
 ***
-<b>Message: "1005: Api secret not found"</b>
-<p><b>Possible cause</b>: Api secret wasn't found<br></p>
-<b>Solution</b>:  check the value for the <code>identifier</code> and resend the request.
 
-    
-* * *
-    
-<b>Message: "1006: User does not have access"</b>
-<p><b>Possible cause</b>: user doesn't have access to the API secret.<br></p>
+Message: "1005: Api secret not found"
 
- ***
-</details>
-    
-<details>
-    <summary><b><span style="color:red">500</span> - Internal Server Error</b>.</summary>
+Possible cause: Api secret wasn't found\
+
+
+Solution: check the value for the `identifier` and resend the request.
 
 ***
-    
-<b>Message: "Unexpected error."</b><br>
 
-<p><b>Possible cause</b>: the error is on the Segura server.<br>
-        
-<b>Solution</b>: contact the support team for more information.</p>
-    
- ***
- </details>
- 
- <details>
-    <summary><b>No route matched with those values.</b></summary>
+Message: "1006: User does not have access"
 
- ***
-    
-<b>Message: "No route matched with those values."</b>
-<p><b>Possible causes</b>: failure in your application authentication with the Segura server or incorrect URL.<br>
-        
-<b>Solution</b>: check the authentication parameters such as <code>Access Token URL</code>, <code>Client ID</code> and  <code>Client Secret</code> and request a new access token or check and correct the URL.
+Possible cause: user doesn't have access to the API secret.\
 
-* * *
-</details>
-     
-<details>
-<summary><b>An invalid response was received from the upstream server
-</b>.</summary>
 
-*** 
-   
-<b>Message: "An invalid response was received from the a seupstream server</b>
-    
-<p><b>Possible cause</b>: the upstream server may be taking too long to respond, leading to a timeout error that is interpreted as an invalid response by the proxy/gateway server.<br>
-        
-<b>Solution</b>: check the connectivity between the source of the request and the Segura server.
 ***
+
 </details>
-     
-   
 
 <details>
-<summary><b>The upstream server is timing out</b>.</summary>
 
-*** 
-    
-<b>Message: "The upstream server is timing out"</b>
-    
-<p><b>Possible cause</b>: the request time has expired.
-        
-<b>Solution</b>: check the connectivity between the source of the request and the Segura server.</p>
-* * *
+<summary>500 - Internal Server Error.</summary>
+
+***
+
+Message: "Unexpected error."\
+
+
+Possible cause: the error is on the Segura server.\
+
+
+Solution: contact the support team for more information.
+
+***
+
 </details>
 
-     
+<details>
+
+<summary>No route matched with those values.</summary>
+
+***
+
+Message: "No route matched with those values."
+
+Possible causes: failure in your application authentication with the Segura server or incorrect URL.\
+
+
+Solution: check the authentication parameters such as `Access Token URL`, `Client ID` and `Client Secret` and request a new access token or check and correct the URL.
+
+***
+
+</details>
+
+<details>
+
+<summary>An invalid response was received from the upstream server.</summary>
+
+***
+
+Message: "An invalid response was received from the a seupstream server
+
+Possible cause: the upstream server may be taking too long to respond, leading to a timeout error that is interpreted as an invalid response by the proxy/gateway server.\
+
+
+Solution: check the connectivity between the source of the request and the Segura server.
+
+***
+
+</details>
+
+<details>
+
+<summary>The upstream server is timing out.</summary>
+
+***
+
+Message: "The upstream server is timing out"
+
+Possible cause: the request time has expired.
+
+Solution: check the connectivity between the source of the request and the Segura server.
+
+***
+
+</details>

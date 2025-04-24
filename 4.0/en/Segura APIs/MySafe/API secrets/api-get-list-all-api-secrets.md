@@ -2,35 +2,31 @@
 
 Access information of API secrets stored **MySafe**.
 
-
 ## Request
 
- <code><span style="color:orange"> GET</code></span> `api/mysafe/secretapi`
-
-
+`GET` `api/mysafe/secretapi`
 
 ## Request parameters
+
 Send the parameters below as **query** in the URL.
 
-* <summary><code>tag</code> - <b>string</b> - Filters API secrets by the tag registered.</summary>
-* <summary><code>identifier_code</code> - <b>string</b> - Filters API secrets by their identifier.</summary>
+* `tag` - string - Filters API secrets by the tag registered.
+*   `identifier_code` - string - Filters API secrets by their identifier.
 
+    #### Example request
 
+`GET` `{{url}}api/mysafe/secretapi` - Lists all API secrets.
 
+`GET` `{{url}}api/mysafe/secretapi?tag=cloud` - Lists API secret(s) registered with the `tag`= `cloud`.
 
-  ### Example request
-<code><span style="color:orange"> GET</code></span> `{{url}}api/mysafe/secretapi` - Lists all API secrets.
+`GET` `{{url}}api/mysafe/password?identifier_code=12534` - Lists API secret(s) registered with the `identifier_code`= `12534`.
 
-<code><span style="color:orange"> GET</code></span> `{{url}}api/mysafe/secretapi?tag=cloud` - Lists API secret(s) registered with the `tag`= `cloud`.
+## Response
 
-<code><span style="color:orange"> GET</code></span> `{{url}}api/mysafe/password?identifier_code=12534` - Lists API secret(s) registered with the `identifier_code`= `12534`.
-  
-  
-  ## Response
- ```json
+```json
 HTTP/1.1 200 OK
-``` 
- 
+```
+
 ```json
 {
     "code": 200,
@@ -72,79 +68,81 @@ HTTP/1.1 200 OK
     ]
 }
 ```
+
 ### Reponse body fields
 
-<summary>&#8226; <code>api_secret_on_list</code> - <b>array of objects</b> - Data of the stored API secrets.</summary>
-
-<br>
-<summary>&nbsp;&emsp;&emsp;&nbsp;→ <code>identifier</code> - <b>int</b> - API secret unique identification code.</summary>
-    
-<br>
-<summary>&nbsp;&emsp;&emsp;&nbsp;→ <code>name</code> - <b>string</b> - Name assigned to the API secret.</summary>
-
-<br>
- <summary>&nbsp;&emsp;&emsp;&nbsp;→ <code>can_view</code> - <b>string</b> - Permission to view the API secret.</summary>
- 
-<br>   
-<summary>&nbsp;&emsp;&emsp;&nbsp;→ <code>can_write</code> - <b>string</b> - Permission to edit the API secret.</summary>
+• `api_secret_on_list` - array of objects - Data of the stored API secrets.\
+&#x20;   → `identifier` - int - API secret unique identification code.\
+&#x20;   → `name` - string - Name assigned to the API secret.\
+&#x20;   → `can_view` - string - Permission to view the API secret.\
+&#x20;   → `can_write` - string - Permission to edit the API secret.
 
 ## Errors
- 
-    
+
 <details>
-<summary><b><span style="color:red">500</span> - Internal Server Error</b>.</summary>
+
+<summary>500 - Internal Server Error.</summary>
 
 ***
-    
-<b>Message: "Unexpected error."</b><br>
 
-<p><b>Possible cause</b>: the error is on the Segura server.<br>
-        
-<b>Solution</b>: contact the support team for more information.</p>
-    
- ***
- </details>
- 
- <details>
-    <summary><b>No route matched with those values.</b></summary>
+Message: "Unexpected error."\
 
- ***
-    
-<b>Message: "No route matched with those values."</b>
-<p><b>Possible causes</b>: failure in your application authentication with the Segura server or incorrect URL.<br>
-        
-<b>Solution</b>: check the authentication parameters such as <code>Access Token URL</code>, <code>Client ID</code> and  <code>Client Secret</code> and request a new access token or check and correct the URL.
 
-* * *
-</details>
-     
-<details>
-<summary><b>An invalid response was received from the upstream server
-</b>.</summary>
+Possible cause: the error is on the Segura server.\
 
-*** 
-   
-<b>Message: "An invalid response was received from the a seupstream server</b>
-    
-<p><b>Possible cause</b>: the upstream server may be taking too long to respond, leading to a timeout error that is interpreted as an invalid response by the proxy/gateway server.<br>
-        
-<b>Solution</b>: check the connectivity between the source of the request and the Segura server.
+
+Solution: contact the support team for more information.
+
 ***
+
 </details>
-     
-   
 
 <details>
-<summary><b>The upstream server is timing out</b>.</summary>
 
-*** 
-    
-<b>Message: "The upstream server is timing out"</b>
-    
-<p><b>Possible cause</b>: the request time has expired.
-        
-<b>Solution</b>: check the connectivity between the source of the request and the Segura server.</p>
-* * *
+<summary>No route matched with those values.</summary>
+
+***
+
+Message: "No route matched with those values."
+
+Possible causes: failure in your application authentication with the Segura server or incorrect URL.\
+
+
+Solution: check the authentication parameters such as `Access Token URL`, `Client ID` and `Client Secret` and request a new access token or check and correct the URL.
+
+***
+
 </details>
 
-     
+<details>
+
+<summary>An invalid response was received from the upstream server.</summary>
+
+***
+
+Message: "An invalid response was received from the a seupstream server
+
+Possible cause: the upstream server may be taking too long to respond, leading to a timeout error that is interpreted as an invalid response by the proxy/gateway server.\
+
+
+Solution: check the connectivity between the source of the request and the Segura server.
+
+***
+
+</details>
+
+<details>
+
+<summary>The upstream server is timing out.</summary>
+
+***
+
+Message: "The upstream server is timing out"
+
+Possible cause: the request time has expired.
+
+Solution: check the connectivity between the source of the request and the Segura server.
+
+***
+
+</details>

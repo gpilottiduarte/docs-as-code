@@ -3,75 +3,45 @@
 Create an SSH key in **PAM Core**.
 
 ## Prerequisites
-* Authorization with **access** and **read and write** permission to **PAM Core** granted by the administator in **A2A**. 
-More information in [How to manage authorizations in A2A](/v4/docs/how-to-manage-authorizations-in-a2a).
-* Device created in **PAM Core**. 
-More information in [POST | Create device](/v4/docs/api-post-create-device).
+
+* Authorization with **access** and **read and write** permission to **PAM Core** granted by the administator in **A2A**.\
+  More information in [How to manage authorizations in A2A](../../../../../v4/docs/how-to-manage-authorizations-in-a2a/).
+* Device created in **PAM Core**.\
+  More information in [POST | Create device](../../../../../v4/docs/api-post-create-device/).
 
 ## Request
 
- <code><span style="color:orange"> POST</code></span> `/api/pam/key`
-
+`POST` `/api/pam/key`
 
 ## Request parameters
-Send the parameters below in the request <b>body</b>.
+
+Send the parameters below in the request body.
+
+* `ip` - string - required - IP address of the main device associated with the SSH key.
+
+\
+\*`hostname` - string - required - Hostname of the main device associated with the SSH key.\
+\*`private_key` - string - required - Private key necessary for user authentication.Example: `-----BEGIN OPENSSH PRIVATE KEY-----\rcTA9Vb5aA0kXaK2HEjGUWgeCBG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gtZW\rQyNTUxOQAAACCLABE9/nb3BlbnNzaC1rZXktdjEAAAAAxtPOCkR2sGccAAAAKi5DXJnuQ1y\r\nZwAAAAtzc2gtZWQyNTUxOQAAACCLABE9/cTA9VTGVpdGVGZXJyZWlyYUBIUjFTUkb5aA0kXaK2HEjGUWgeCxtPOCkR2sGccA\rDgaNiGsvbkkkXhepU2NQi3iZ4sAET39xMD1VvloDSRdorYc\rSMZRaB4LG084KRHawZxwAAAAI0F6dXJlQUQrRGVib3JhAAAECc20zsB7FuSJQAqhLxe\rgzAQI=\r-----END OPENSSH PRIVATE KEY-----`\
+\*`public_key` - string - required - Public key that allows servers to verify the identity of the user associated with the corresponding private key.Example: `ssh-ed25519 C1lZDI1NTE5AAawZxwAAAAAAC3NzaIIsAET39xdorYcSMZRaB4LG084MD1VvloDSRKRH AzureAD+DeboraLeiteFerreira@HR1SRH3`\
+\*`identifier` - string - Unique string defined by the user or by Segura for identifying the credential.Note: although users aren’t required to fill out this field, for security reasons and to enable future updates of the SSH key, the system will automatically generate an identifier based on `UUID` if left blank. This value can be updated in future calls.\
+\*`username` - string - Username related to the key in the device.Note: although not required, as good practice filling out this field helps searching for the SSH key.
+
+New SSH key default value: `usr`
+
+\
+\*`enabled` - boolean - SSH key status: active = `true`; inactive = `false`.Note: if you enter the value `false` in the `enabled` field, the SSH key will be created as inactive. To access this key's information, you must enable it first.\
+• `devices` - array of hostnames - Additional devices associated with the SSH key, containing their `hostname`.Note: if this field is left empty, the SSH key won't have any additional associated devices.\
+&#x20;   → `hostname` - string - Hostname of the additional device.   Note: only previously registered devices are accepted.\
+\*`tags` - string - Keywords for identifying the SSH key.\
+\*`key_name` - string - User-created name for identifying the key.Note: although not required, as good practice, filling out this field helps search for the SSH key.\
+\*`password` - string - Optional password that provides an extra layer of security to the private key.\
 
 
+### Example request
 
-* <summary><code>ip</code> - <b>string</b> - <span style="color:red">required</span> - IP address of the main device associated with the SSH key.</summary>
+`POST` `{{url}}/api/pam/key`
 
-
-<br>
-* <summary><code>hostname</code> - <b>string</b> - <span style="color:red">required</span> - Hostname of the main device associated with the SSH key.</summary>
-
-
-<br>
-* <summary><code>private_key</code> - <b>string</b> - <span style="color:red">required</span> - Private key necessary for user authentication.</summary>
-    <b>Example</b>: <code>-----BEGIN OPENSSH PRIVATE KEY-----\rcTA9Vb5aA0kXaK2HEjGUWgeCBG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gtZW\rQyNTUxOQAAACCLABE9/nb3BlbnNzaC1rZXktdjEAAAAAxtPOCkR2sGccAAAAKi5DXJnuQ1y\r\nZwAAAAtzc2gtZWQyNTUxOQAAACCLABE9/cTA9VTGVpdGVGZXJyZWlyYUBIUjFTUkb5aA0kXaK2HEjGUWgeCxtPOCkR2sGccA\rDgaNiGsvbkkkXhepU2NQi3iZ4sAET39xMD1VvloDSRdorYc\rSMZRaB4LG084KRHawZxwAAAAI0F6dXJlQUQrRGVib3JhAAAECc20zsB7FuSJQAqhLxe\rgzAQI=\r-----END OPENSSH PRIVATE KEY-----</code>
-
-<br>
-* <summary><code>public_key</code> - <b>string</b> - <span style="color:red">required</span> - Public key that allows servers to verify the identity of the user associated with the corresponding private key.</summary>
-    <b>Example</b>: <code>ssh-ed25519 C1lZDI1NTE5AAawZxwAAAAAAC3NzaIIsAET39xdorYcSMZRaB4LG084MD1VvloDSRKRH AzureAD+DeboraLeiteFerreira@HR1SRH3</code>
-
-<br>
-* <summary><code>identifier</code> - <b>string</b> -  Unique string defined by the user or by Segura for identifying the credential.</summary>
-    <b>Note</b>: although users aren’t required to fill out this field, for security reasons and to enable future updates of the SSH key, the system will automatically generate an identifier based on <code>UUID</code>  if left blank. This value can be updated in future calls.
-
-
-<br>
-* <summary><code>username</code> - <b>string</b> - Username related to the key in the device.</summary><b>Note</b>: although not required, as good practice filling out this field helps searching for the SSH key.<p><b>New SSH key default value</b>: <code>usr</code></p>
-    
-<br>
-* <summary><code>enabled</code> - <b>boolean</b> - SSH key status: active = <code>true</code>;  inactive = <code>false</code>.</summary><b>Note</b>: if you enter the value <code>false</code> in the <code>enabled</code> field, the SSH key will be created as inactive. To access this key's information, you must enable it first.
-
-
-
-<br>
-<summary>&#8226; <code>devices</code> - <b>array of hostnames</b> - Additional devices associated with the SSH key, containing their <code>hostname</code>.</summary><b>Note</b>: if this field is left empty, the SSH key won't have any additional associated devices.
-
-<br>
-<summary>&nbsp;&emsp;&emsp;&nbsp;→ <code>hostname</code> - <b>string</b> - Hostname of the additional device.</summary>&nbsp;&emsp;&emsp;<b>Note</b>: only previously registered devices are accepted.
-    
-
-<br>
-* <summary><code>tags</code> - <b>string</b> - Keywords for identifying the SSH key.</summary>
-
-
-
-<br>
-* <summary><code>key_name</code> - <b>string</b> - User-created name for identifying the key.</summary><b>Note</b>: although not required, as good practice, filling out this field helps search for the SSH key.
-
-<br>
-* <summary><code>password</code> - <b>string</b> - Optional password that provides an extra layer of security to the private key.</summary>
-
-<br>
-
-
-  ### Example request
-
- <code><span style="color:orange"> POST</code></span> `{{url}}/api/pam/key`
-
-```json 
+```json
 {
     "ip": "10.66.33.15",
     "hostname": "w2016",
@@ -90,165 +60,196 @@ Send the parameters below in the request <b>body</b>.
     "password": "fkjwe87a5a8fa9a" 
 }
 ```
-  
-  
-  
-  ## Response 
- ```json 
-  {
-    "code": 201,
-    "response": {
-        "status": 201,
-        "message": "Key successfully registered!",
-        "error": false,
-        "error_code": 0,
-        "detail": "",
-        "Message": "Key successfully registered!",
-        "erro": false,
-        "cod_erro": 0
-    },
-    "key": {
-        "id": "92",
-        "identifier": "sshkey0",
-        "devices": [
-            {
-                "hostname": "API device test",
-                "ip": "10.66.33.20"
-            }
-        ],
-        "devices_error": []
-    }
+
+## Response
+
+```json
+ {
+   "code": 201,
+   "response": {
+       "status": 201,
+       "message": "Key successfully registered!",
+       "error": false,
+       "error_code": 0,
+       "detail": "",
+       "Message": "Key successfully registered!",
+       "erro": false,
+       "cod_erro": 0
+   },
+   "key": {
+       "id": "92",
+       "identifier": "sshkey0",
+       "devices": [
+           {
+               "hostname": "API device test",
+               "ip": "10.66.33.20"
+           }
+       ],
+       "devices_error": []
+   }
 }
- ```
- 
- ## Errors
- 
- <details>
-<summary><b><span style="color:red">400</span> - Bad Request</b>.</summary>
+```
+
+## Errors
+
+<details>
+
+<summary>400 - Bad Request.</summary>
 
 ***
-    
-<b>Message: "1004: The device's hostname was not informed"</b>
-<p><b>Possible cause</b>: the required parameter <code>hostname</code> of the device wasn’t informed.<br></p>
-<b>Solution</b>: provide a value for the <code>hostname</code> parameter of the device and resend the request. 
-  
-* * *
 
-<b>Message: "1005: The device's IP was not informed"</b>
-<p><b>Possible cause</b>: the required parameter <code>ip</code> of the device wasn’t informed.<br></p>
-    <b>Solution</b>: provide a value for the <code>ip</code> parameter of the device and resend the request.
-  
+Message: "1004: The device's hostname was not informed"
 
-* * *
-    
- <b>Message: "1013: The public key was not informed"</b>
- <p><b>Possible cause</b>: the required parameter <code>public_key</code> wasn’t informed.<br></p>
-  <b>Solution</b>: provide a value for the <code>public_key</code> parameter and resend the request.
- 
+Possible cause: the required parameter `hostname` of the device wasn’t informed.\
+
+
+Solution: provide a value for the `hostname` parameter of the device and resend the request.
+
 ***
-<b>Message: "1014: The private key was not informed"</b>
- <p><b>Possible cause</b>: the required parameter <code>private_key</code> wasn’t informed.<br></p>
-  <b>Solution</b>: provide a value for the <code>private_key</code> parameter and resend the request.
 
-  ***
-<b>Message: "1039: Without PAM Configuration Access permission"</b>  
-<br><b>Possible cause</b>: your authorization doesn’t have permission to create a credential. 
-     
-<b>Solution</b>: ask the administrator to check your <b>read and write</b> permission to <b>PAM Core</b> resources in <b>A2A</b>.
+Message: "1005: The device's IP was not informed"
 
-*** 
+Possible cause: the required parameter `ip` of the device wasn’t informed.\
+
+
+Solution: provide a value for the `ip` parameter of the device and resend the request.
+
+***
+
+Message: "1013: The public key was not informed"
+
+Possible cause: the required parameter `public_key` wasn’t informed.\
+
+
+Solution: provide a value for the `public_key` parameter and resend the request.
+
+***
+
+Message: "1014: The private key was not informed"
+
+Possible cause: the required parameter `private_key` wasn’t informed.\
+
+
+Solution: provide a value for the `private_key` parameter and resend the request.
+
+***
+
+Message: "1039: Without PAM Configuration Access permission"\
+\
+Possible cause: your authorization doesn’t have permission to create a credential.
+
+Solution: ask the administrator to check your read and write permission to PAM Core resources in A2A.
+
+***
 
 </details>
 
 <details>
-<summary><b><span style="color:red">404</span> - Not Found</b></summary>
 
-***
-<b>Message: "Resource sub not found"</b><br>
-
-<p><b>Possible cause</b>: the URL or the requested resource isn’t correct.<br>
-        
-<b>Solution</b>: check the URL and make sure the parameter is correct.</p>
-* * *
-</details>
-
-
-<details>
- 
-<summary><b><span style="color:red">500</span> - Internal Server Error</b></summary>
-
-***
-    
-<b>Message: "Unexpected error."</b><br>
- 
-<p><b>Possible cause</b>: the error is in the Segura server.<br>
-        
-<b>Solution</b>: contact the support team for more information.</p>
+<summary>404 - Not Found</summary>
 
 ***
 
-<b>Message: "You are not authorized to access this resource."</b>
+Message: "Resource sub not found"\
 
-<p><b>Possible cause</b>: you don’t have the authorization to access this resource.<br>
-        
-<b>Solution</b>: ask the administrator to check your permission to access the <b>PAM Core</b> resources in <b>A2A</b>.</p>
 
-* * *
- </details>   
+Possible cause: the URL or the requested resource isn’t correct.\
 
-  
 
-<details>
-<summary><b>Client authentication failed</b></summary>
+Solution: check the URL and make sure the parameter is correct.
 
-*** 
-   
-<b>Message: "Client authentication failed."</b>
-<p><b>Possible cause</b>: failure in your application authentication with the Segura server. <br>
-        
-<b>Solution</b>: check the authentication parameters such as <code>Access Token URL</code>, <code>Client ID</code> e <code>Client secret</code> and request a new access token.</p>
- 
-* * *   
-</details>
-     
-  
-
-<details>
-<summary><b>Invalid signature</b></summary>
-
-*** 
-    
-<b>Message: "Invalid signature"</b>
-    
-<p><b>Possible cause</b>: failure in recognizing the URL of the client application.
-        
-<b>Solution</b>: check the URL of the client application and resent the request.</p>
-
-* * * 
-</details>
-     
-
-<details>
-    <summary><b>No route matched with those values</b></summary>
-    
-***   
-    
-<b>Message: "No route matched with those values."</b>
-   <p><b>Possible cause</b>: the authorization header is missing in the API request.<br>
-        
-  <b>Solution</b>: request a new access token.</p>
-   
- * * *
-</details>
- 
-
-<details>
-    <summary><b> Request timed out</b></summary>
-    
 ***
-    
-<b>Message: "Request timed out."</b>
-<p><b>Possible cause</b>: the request time has expired.<br>
-        
-<b>Solution</b>: check the connectivity between the source of the request and the Segura server.</p>
+
+</details>
+
+<details>
+
+<summary>500 - Internal Server Error</summary>
+
+***
+
+Message: "Unexpected error."\
+
+
+Possible cause: the error is in the Segura server.\
+
+
+Solution: contact the support team for more information.
+
+***
+
+Message: "You are not authorized to access this resource."
+
+Possible cause: you don’t have the authorization to access this resource.\
+
+
+Solution: ask the administrator to check your permission to access the PAM Core resources in A2A.
+
+***
+
+</details>
+
+<details>
+
+<summary>Client authentication failed</summary>
+
+***
+
+Message: "Client authentication failed."
+
+Possible cause: failure in your application authentication with the Segura server.\
+
+
+Solution: check the authentication parameters such as `Access Token URL`, `Client ID` e `Client secret` and request a new access token.
+
+***
+
+</details>
+
+<details>
+
+<summary>Invalid signature</summary>
+
+***
+
+Message: "Invalid signature"
+
+Possible cause: failure in recognizing the URL of the client application.
+
+Solution: check the URL of the client application and resent the request.
+
+***
+
+</details>
+
+<details>
+
+<summary>No route matched with those values</summary>
+
+***
+
+Message: "No route matched with those values."
+
+Possible cause: the authorization header is missing in the API request.\
+
+
+Solution: request a new access token.
+
+***
+
+</details>
+
+<details>
+
+<summary>Request timed out</summary>
+
+***
+
+Message: "Request timed out."
+
+Possible cause: the request time has expired.\
+
+
+Solution: check the connectivity between the source of the request and the Segura server.
+
 </details>

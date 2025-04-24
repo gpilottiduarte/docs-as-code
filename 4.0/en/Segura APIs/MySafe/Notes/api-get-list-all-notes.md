@@ -2,30 +2,27 @@
 
 Access information of notes stored in **MySafe**.
 
-
 ## Request
 
-
- <code><span style="color:orange"> GET</code></span> `api/mysafe/note`
-
+`GET` `api/mysafe/note`
 
 ## Query parameters
-Send the parameters below in the **query** of the URL. 
 
-* <summary><code>tag</code> - <b>string</b> - Filter notes by tags.</summary>
-* <summary><code>name</code> - <b>string</b> -Filters notes by name.</summary>
+Send the parameters below in the **query** of the URL.
 
+* `tag` - string - Filter notes by tags.
+* `name` - string -Filters notes by name.
 
 ### Example requests
 
-<code><span style="color:orange"> GET</code></span> `{{url}}api/mysafe/note`  - Gets all notes.
+`GET` `{{url}}api/mysafe/note` - Gets all notes.
 
-<code><span style="color:orange"> GET</code></span> `{{url}}api/mysafe/note?tag=secret` - Gets the note(s) registered with the `tag` = `secret`.
+`GET` `{{url}}api/mysafe/note?tag=secret` - Gets the note(s) registered with the `tag` = `secret`.
 
-<code><span style="color:orange"> GET</code></span> `{{url}}api/mysafe/note?name=secret note` - Gets the note(s) registered with the `name` = `secret note`.
-  
-  
-  ## Response 
+`GET` `{{url}}api/mysafe/note?name=secret note` - Gets the note(s) registered with the `name` = `secret note`.
+
+## Response
+
 ```
 HTTP/1.1 200 OK
 ```
@@ -83,75 +80,76 @@ HTTP/1.1 200 OK
      ]
 }
 ```
- 
- ### Response body fields
 
-    
-<summary>&#8226; <code>notes_on_list</code> - <b>array of objects</b> - Data of the stored notes.</summary>
+### Response body fields
 
-<br>
-<summary>&nbsp;&emsp;&emsp;&nbsp;→ <code>identifier</code> - <b>int</b> - Note unique identification code.</summary>
-    
-<br>
-<summary>&nbsp;&emsp;&emsp;&nbsp;→ <code>name</code> - <b>string</b> - Note name.</summary>
-
-<br>
-<summary>&nbsp;&emsp;&emsp;&nbsp;→ <code>tags</code> - <b>string</b> - Keywords associated with the note.</summary>
-
-<br>
- <summary>&nbsp;&emsp;&emsp;&nbsp;→ <code>can_view</code> - <b>string</b> - Permission to view the note.</summary>
- 
-<br>   
-<summary>&nbsp;&emsp;&emsp;&nbsp;→ <code>can_write</code> - <b>string</b> - Permission to edit the note.</summary>
- 
-<br>   
+• `notes_on_list` - array of objects - Data of the stored notes.\
+&#x20;   → `identifier` - int - Note unique identification code.\
+&#x20;   → `name` - string - Note name.\
+&#x20;   → `tags` - string - Keywords associated with the note.\
+&#x20;   → `can_view` - string - Permission to view the note.\
+&#x20;   → `can_write` - string - Permission to edit the note.\
 
 
- ## Errors
- 
-    
+## Errors
+
 <details>
-<summary><b><span style="color:red">500</span> - Internal Server Error</b></summary>
+
+<summary>500 - Internal Server Error</summary>
 
 ***
-<b>Message: "Unexpected error."</b><br>
-<p><b>Possible cause</b>: the error is on the Segura server.<br>
-<b>Solution</b>: contact the support team for more information.</p>
+
+Message: "Unexpected error."\
+
+
+Possible cause: the error is on the Segura server.\
+Solution: contact the support team for more information.
 
 ***
+
 </details>
 
 <details>
-<summary><b>No route matched with those values.</b></summary>
+
+<summary>No route matched with those values.</summary>
 
 ***
-<b>Message: "No route matched with those values."</b>
-<p><b>Possible causes</b>: failure in your application's authentication with the Segura server or incorrect URL.<br>
-<b>Solution</b>: check the authentication parameters such as <code>Access Token URL</code>, <code>Client ID</code>, and <code>Client Secret</code> and request a new access token or check and correct the URL.</p>
+
+Message: "No route matched with those values."
+
+Possible causes: failure in your application's authentication with the Segura server or incorrect URL.\
+Solution: check the authentication parameters such as `Access Token URL`, `Client ID`, and `Client Secret` and request a new access token or check and correct the URL.
 
 ***
+
 </details>
 
 <details>
-<summary><b>An invalid response was received from the upstream server.</b></summary>
+
+<summary>An invalid response was received from the upstream server.</summary>
 
 ***
-<b>Message: "An invalid response was received from the upstream server."</b>
-<p><b>Possible cause</b>: the upstream server may be taking too long to respond, leading to a timeout error interpreted as an invalid response by the proxy/gateway server.<br>
-<b>Solution</b>: check the connectivity between the request origin and the Segura server.</p>
+
+Message: "An invalid response was received from the upstream server."
+
+Possible cause: the upstream server may be taking too long to respond, leading to a timeout error interpreted as an invalid response by the proxy/gateway server.\
+Solution: check the connectivity between the request origin and the Segura server.
 
 ***
+
 </details>
 
 <details>
-<summary><b>The upstream server is timing out.</b></summary>
+
+<summary>The upstream server is timing out.</summary>
 
 ***
-<b>Message: "The upstream server is timing out."</b>
-<p><b>Possible cause</b>: the request timed out.<br>
-<b>Solution</b>: check the connectivity between the request origin and the Segura server.</p>
+
+Message: "The upstream server is timing out."
+
+Possible cause: the request timed out.\
+Solution: check the connectivity between the request origin and the Segura server.
 
 ***
+
 </details>
-     
-

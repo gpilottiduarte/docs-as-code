@@ -3,23 +3,24 @@
 Disable a related user in **Segura**.
 
 ## Prerequisites
-- Authorization with access permission to the **Users** resource granted by the **A2A** administrator.
-More information in [How to manage authorizations in A2A](/v4/docs/how-to-manage-authorizations-in-a2a)
-- Active related user.
+
+* Authorization with access permission to the **Users** resource granted by the **A2A** administrator.\
+  More information in [How to manage authorizations in A2A](../../../../../v4/docs/how-to-manage-authorizations-in-a2a/)
+* Active related user.
 
 ## Request
 
-<code><span style="color:red">DEL</span></code> `/api/user/related/[id]`
+`DEL` `/api/user/related/[id]`
 
 ### Request parameters
+
 Send the parameter below in the **path** of the URL.
 
-<summary><code>id</code> - <b>int</b> - <span style="color:red">required</span> - Related user unique identification code.</summary>
-<b>Note</b>: this value is automatically assigned by Segura in  <a href="/v4/docs/api-post-create-related-user">POST | Create related user</a> and is obtained in the response to the  <a href="/v4/docs/api-get-list-all-related-users">GET | List all related users</a> request.
+`id` - int - required - Related user unique identification code.Note: this value is automatically assigned by Segura in [POST | Create related user](../../../../../v4/docs/api-post-create-related-user/) and is obtained in the response to the [GET | List all related users](../../../../../v4/docs/api-get-list-all-related-users/) request.
 
 ### Example request
 
-<code><span style="color:red">DELETE</span></code> `{{url}}/api/user/related/4`
+`DELETE` `{{url}}/api/user/related/4`
 
 ## Response
 
@@ -43,93 +44,124 @@ HTTP/1.1 200 OK
 }
 ```
 
-:::(Info) (Info)
-If the related user has already been deactivated, the call will return a response code `200` with the message `Related user has already been deactivated`.
+:::(Info) (Info)\
+If the related user has already been deactivated, the call will return a response code `200` with the message `Related user has already been deactivated`.\
 :::
-
 
 ## Errors
 
 <details>
-<summary><b><span style="color:red">400</span> - Bad Request</b></summary>
+
+<summary>400 - Bad Request</summary>
 
 ***
-<b>Message: "1005: User does not exist"</b>
-<p><b>Possible cause</b>: the <code>id</code> provided hasn’t returned a user registered in Segura.<br></p>
-<b>Solution</b>: provide a valid <code>id</code> and resend the request.
+
+Message: "1005: User does not exist"
+
+Possible cause: the `id` provided hasn’t returned a user registered in Segura.\
+
+
+Solution: provide a valid `id` and resend the request.
 
 ***
+
 </details>
 
 <details>
-<summary><b><span style="color:red">404</span> - Not Found</b></summary>
+
+<summary>404 - Not Found</summary>
 
 ***
-<b>Message: "Resource sub not found"</b><br>
 
-<p><b>Possible cause</b>: the URL or requested resource isn’t correct.<br>
-<b>Solution</b>: check the URL and make sure all the parameters are correct.</p>
+Message: "Resource sub not found"\
+
+
+Possible cause: the URL or requested resource isn’t correct.\
+Solution: check the URL and make sure all the parameters are correct.
 
 ***
+
 </details>
 
 <details>
-<summary><b><span style="color:red">500</span> - Internal Server Error</b></summary>
+
+<summary>500 - Internal Server Error</summary>
 
 ***
-<b>Message: "Unexpected error."</b><br>
 
-<p><b>Possible cause</b>: the error is in the Segura server.<br>
-<b>Solution</b>: contact the support team for more information.</p>
+Message: "Unexpected error."\
 
-***
-<b>Message: "You are not authorized to access this resource."</b>
-<p><b>Possible cause</b>: you don’t have the authorization to access this resource.<br>
-<b>Solution</b>: ask the administrator to check your permission to access the <b>Users</b> resources in <b>A2A</b>.</p>
+
+Possible cause: the error is in the Segura server.\
+Solution: contact the support team for more information.
 
 ***
+
+Message: "You are not authorized to access this resource."
+
+Possible cause: you don’t have the authorization to access this resource.\
+Solution: ask the administrator to check your permission to access the Users resources in A2A.
+
+***
+
 </details>
 
 <details>
-<summary><b>Client authentication failed</b></summary>
+
+<summary>Client authentication failed</summary>
 
 ***
-<b>Message: "Client authentication failed."</b>
-<p><b>Possible cause</b>: failure in your application authentication with the Segura server.<br>
-<b>Solution</b>: check the authentication parameters such as <code>Access Token URL</code>, <code>Client ID</code> and <code>Client secret</code> and request a new access token.</p>
+
+Message: "Client authentication failed."
+
+Possible cause: failure in your application authentication with the Segura server.\
+Solution: check the authentication parameters such as `Access Token URL`, `Client ID` and `Client secret` and request a new access token.
 
 ***
+
 </details>
 
 <details>
-<summary><b>Invalid signature</b></summary>
+
+<summary>Invalid signature</summary>
 
 ***
-<b>Message: "Invalid signature"</b>
-<p><b>Possible cause</b>: failure in recognizing the URL of the client application.<br>
-<b>Solution</b>: check the URL of the client application and resend the request.</p>
+
+Message: "Invalid signature"
+
+Possible cause: failure in recognizing the URL of the client application.\
+Solution: check the URL of the client application and resend the request.
 
 ***
+
 </details>
 
 <details>
-<summary><b>No route matched with those values</b></summary>
+
+<summary>No route matched with those values</summary>
 
 ***
-<b>Message: "No route matched with those values."</b>
-<p><b>Possible cause</b>: the authorization header is missing in the API request.<br>
-<b>Solution</b>: request a new access token.</p>
+
+Message: "No route matched with those values."
+
+Possible cause: the authorization header is missing in the API request.\
+Solution: request a new access token.
 
 ***
+
 </details>
 
 <details>
-<summary><b>Request timed out</b></summary>
+
+<summary>Request timed out</summary>
 
 ***
-<b>Message: "Request timed out."</b>
-<p><b>Possible cause</b>: the request time has expired.<br>
-<b>Solution</b>: check the connectivity between the source of the request and the Segura server.</p>
+
+Message: "Request timed out."
+
+Possible cause: the request time has expired.\
+Solution: check the connectivity between the source of the request and the Segura server.
 
 ***
+
 </details>

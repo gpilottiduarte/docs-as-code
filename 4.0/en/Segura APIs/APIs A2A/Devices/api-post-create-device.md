@@ -3,78 +3,69 @@
 Create a device in **PAM Core**.
 
 ## Prerequisites
-* Authorization with **access** and **read and write** permission to **PAM Core** granted by the administrator in **A2A**.
-More information in [How to manage authorizations in A2A](/v4/docs/how-to-manage-authorizations-in-a2a).
+
+* Authorization with **access** and **read and write** permission to **PAM Core** granted by the administrator in **A2A**.\
+  More information in [How to manage authorizations in A2A](../../../../../v4/docs/how-to-manage-authorizations-in-a2a/).
 
 ## Request
 
-
- <code><span style="color:orange"> POST</code></span> `/api/pam/device`
-
+`POST` `/api/pam/device`
 
 ## Request parameters
-Send the parameters below in the request <b>body</b>.
 
-* <summary><code>ip</code> - <b>string</b> - <span style="color:red">required</span> - IP address of the device.</summary>
+Send the parameters below in the request body.
 
+* `ip` - string - required - IP address of the device.
 
-<br>
-* <summary><code>hostname</code> - <b>string</b> - <span style="color:red">required</span> - Hostname of the device.</summary>
+\
+\*`hostname` - string - required - Hostname of the device.
 
-::: (Info) (Info)
-If the `hostname` provided is associated with a previously created device, this request will update the existing device. Otherwise, a new device will be created associated with this `hostname`.
+::: (Info) (Info)\
+If the `hostname` provided is associated with a previously created device, this request will update the existing device. Otherwise, a new device will be created associated with this `hostname`.\
 :::
 
-<br>
-* <summary><code>model</code> - <b>string</b> - <span style="color:red">required</span> - Device model.</summary>
-<p><b>Note</b>: a new model is created if the value is unique.
+\
+\*`model` - string - required - Device model.
 
+Note: a new model is created if the value is unique.\
+\*
 
-<br>
-* <summary><code>type</code> - <b>string</b> - <span style="color:red">required</span> - Device type.</summary>
-<p><b>Note</b>: a new type is created if the value is unique.
+`type` - string - required - Device type.
 
+Note: a new type is created if the value is unique.\
+\*
 
-<br>
-* <summary><code>vendor</code> - <b>string</b> - <span style="color:red">required</span> - Device vendor.</summary>
-<p><b>Note</b>: a new vendor is created if the value is unique.
+`vendor` - string - required - Device vendor.
 
+Note: a new vendor is created if the value is unique.\
+\*
 
-<br>
-* <summary><code>site</code> - <b>string</b> - <span style="color:red">required</span> - Device location. </summary>
-<p><b>Note</b>: a new site is created if the value is unique.
+`site` - string - required - Device location.
 
+Note: a new site is created if the value is unique.\
+\*
 
-<br>
-* <summary><code>device_domain</code> - <b>string</b> - Name or short name of the domain.</summary>
-<b>Note</b>: only previously registered device domains are accepted.
-<b>Example</b>: <code>api,app</code>
+`device_domain` - string - Name or short name of the domain.Note: only previously registered device domains are accepted.Example: `api,app`
 
-:::(Warning) (Attention)
-When listing more than one `device_domain`, add commas without a space between them, as in the following example:
-`testlab.com,demo.lab.com`
+:::(Warning) (Attention)\
+When listing more than one `device_domain`, add commas without a space between them, as in the following example:`testlab.com,demo.lab.com`\
 :::
 
-<br>
-* <summary><code>device_tags</code> - <b>string</b> - Keywords associated with the device.</summary>
-
-<br>
-
-* <summary><code>connectivities</code> - <b>string</b> - Device connectivity.</summary>
+\
+\*`device_tags` - string - Keywords associated with the device.\
 
 
-<br>
-* <summary><code>session_remote_config</code> - <b>string</b> - Login expression</summary>
+* `connectivities` - string - Device connectivity.
 
-<br>
+\
+\*`session_remote_config` - string - Login expression\
 
 
-  ### Example request
+### Example request
 
-    
-<code><span style="color:orange"> POST</code></span> `{{url}}/api/pam/device`
-    
-```json 
+`POST` `{{url}}/api/pam/device`
+
+```json
 {
     "ip": "10.66.33.20",
     "hostname": "API device test",
@@ -85,186 +76,225 @@ When listing more than one `device_domain`, add commas without a space between t
     "device_domain": ""
 }
 ```
-  
-  
-  
-  ## Response 
- ```json 
-   {
-    "code": 201,
-    "response": {
-        "status": 201,
-        "message": "Device successfully registered!",
-        "error": false,
-        "error_code": 0,
-        "detail": "",
-        "mensagem": "Device successfully registered!",
-        "erro": false,
-        "cod_erro": 0
-    },
-    "device": {
-        "id": "17",
-        "hostname": "API device test",
-        "ip": "10.66.33.120",
-        "model": "Gmail",
-        "type": "Desktop",
-        "vendor": "Linux",
-        "site": "AWS",
-        "device_domain": "",
-        "connectivities": "",
-        "session_remote_config": "",
-        "device_tags": ""
-    }
+
+## Response
+
+```json
+  {
+   "code": 201,
+   "response": {
+       "status": 201,
+       "message": "Device successfully registered!",
+       "error": false,
+       "error_code": 0,
+       "detail": "",
+       "mensagem": "Device successfully registered!",
+       "erro": false,
+       "cod_erro": 0
+   },
+   "device": {
+       "id": "17",
+       "hostname": "API device test",
+       "ip": "10.66.33.120",
+       "model": "Gmail",
+       "type": "Desktop",
+       "vendor": "Linux",
+       "site": "AWS",
+       "device_domain": "",
+       "connectivities": "",
+       "session_remote_config": "",
+       "device_tags": ""
+   }
 }
- ```
- 
- ## Errors
- 
- <details>
-<summary><b><span style="color:red">400</span> - Bad Request</b></summary>
+```
+
+## Errors
+
+<details>
+
+<summary>400 - Bad Request</summary>
 
 ***
-    
-<b>Message: "1004: The device's hostname was not informed"</b>
-<p><b>Possible cause</b>: the required parameter <code>hostname</code> of the device wasn’t informed.<br></p>
-<b>Solution</b>: provide a value for the <code>hostname</code> parameter of the device and resend the request. 
-  
-* * *
 
-<b>Message: "1005: The device's IP was not informed"</b>
-<p><b>Possible cause</b>: the required parameter <code>ip</code> of the device wasn’t informed.<br></p>
-    <b>Solution</b>: provide a value for the <code>ip</code> parameter of the device and resend the request.
-  
+Message: "1004: The device's hostname was not informed"
 
-* * *
-<b>Mensagem: "1019: The device's site was not informed"</b>
- <p><b>Possível causa</b>: the required parameter <code>site</code> of the device wasn’t informed.<br></p>
-  <b>Solução</b>: provide a value for the <code>site</code> parameter of the device and resend the request.
- 
+Possible cause: the required parameter `hostname` of the device wasn’t informed.\
+
+
+Solution: provide a value for the `hostname` parameter of the device and resend the request.
+
 ***
-    
- <b>Mensagem: "1020: The device's model was not informed"</b>
- <p><b>Possível causa</b>: the required parameter <code>model</code> of the device wasn’t informed.<br></p>
-  <b>Solução</b>: provide a value for the <code>model</code> parameter of the device and resend the request.
 
-  ***
-  
-  <b>Mensagem: "1021: The device's vendor was not informed"</b>
- <p><b>Possível causa</b>: the required parameter <code>vendor</code> of the device wasn’t informed.<br></p>
-  <b>Solução</b>: provide a value for the <code>vendor</code> parameter of the device and resend the request.
+Message: "1005: The device's IP was not informed"
 
-  ***
- <b>Mensagem: "1022: The device's type was not informed"</b>
- <p><b>Possível causa</b>: the required parameter <code>type</code> of the device wasn’t informed.<br></p>
-  <b>Solução</b>: provide a value for the <code>type</code> parameter of the device and resend the request.
+Possible cause: the required parameter `ip` of the device wasn’t informed.\
 
-  ***
-<b>Message: "1029: It is not possible to enter a domain that has not been previously registered"</b>
- <p><b>Possible cause</b>:  the <code>device_domain</code> sent doesn’t exist or the sent format is incorrect.<br></p>
-  <b>Solution</b>: provide a valid value for the <code>device_domain</code> , or, in case you’re sending more than one <code>device_domain</code> remember to not add space between commas. Example: <code>qakm.lab.mt4.dev,my_device_domain</code>.
 
-  ***
-<b>Message: "1039: Without PAM Configuration Access permission"</b>  
-<br><b>Possible cause</b>: your authorization doesn’t have permission to update a credential. 
-     
-<b>Solution</b>: ask the administrator to check your <b>read and write</b> permission to <b>PAM Core</b> resources in <b>A2A</b>.
+Solution: provide a value for the `ip` parameter of the device and resend the request.
 
-* * *
+***
+
+Mensagem: "1019: The device's site was not informed"
+
+Possível causa: the required parameter `site` of the device wasn’t informed.\
+
+
+Solução: provide a value for the `site` parameter of the device and resend the request.
+
+***
+
+Mensagem: "1020: The device's model was not informed"
+
+Possível causa: the required parameter `model` of the device wasn’t informed.\
+
+
+Solução: provide a value for the `model` parameter of the device and resend the request.
+
+***
+
+Mensagem: "1021: The device's vendor was not informed"
+
+Possível causa: the required parameter `vendor` of the device wasn’t informed.\
+
+
+Solução: provide a value for the `vendor` parameter of the device and resend the request.
+
+***
+
+Mensagem: "1022: The device's type was not informed"
+
+Possível causa: the required parameter `type` of the device wasn’t informed.\
+
+
+Solução: provide a value for the `type` parameter of the device and resend the request.
+
+***
+
+Message: "1029: It is not possible to enter a domain that has not been previously registered"
+
+Possible cause: the `device_domain` sent doesn’t exist or the sent format is incorrect.\
+
+
+Solution: provide a valid value for the `device_domain` , or, in case you’re sending more than one `device_domain` remember to not add space between commas. Example: `qakm.lab.mt4.dev,my_device_domain`.
+
+***
+
+Message: "1039: Without PAM Configuration Access permission"\
+\
+Possible cause: your authorization doesn’t have permission to update a credential.
+
+Solution: ask the administrator to check your read and write permission to PAM Core resources in A2A.
+
+***
 
 </details>
 
-
-
-
 <details>
-<summary><b><span style="color:red">404</span> - Not Found</b></summary>
 
-***
-<b>Message: "Resource sub not found"</b><br>
-
-<p><b>Possible cause</b>: the URL or the requested resource isn’t correct.<br>
-        
-<b>Solution</b>: check the URL and make sure the parameter is correct.</p>
-* * *
-</details>
-
-
-<details>
- 
-<summary><b><span style="color:red">500</span> - Internal Server Error</b></summary>
-
-***
-    
-<b>Message: "Unexpected error."</b><br>
- 
-<p><b>Possible cause</b>: the error is in the Segura server.<br>
-        
-<b>Solution</b>: contact the support team for more information.</p>
+<summary>404 - Not Found</summary>
 
 ***
 
-<b>Message: "You are not authorized to access this resource."</b>
+Message: "Resource sub not found"\
 
-<p><b>Possible cause</b>: you don’t have the authorization to access this resource.<br>
-        
-<b>Solution</b>: ask the administrator to check your permission to access the <b>PAM Core</b> resources in <b>A2A</b>.</p>
 
-* * *
- </details>   
+Possible cause: the URL or the requested resource isn’t correct.\
 
-  
 
-<details>
-<summary><b>Client authentication failed</b></summary>
+Solution: check the URL and make sure the parameter is correct.
 
-*** 
-   
-<b>Message: "Client authentication failed."</b>
-<p><b>Possible cause</b>: failure in your application authentication with the Segura server. <br>
-        
-<b>Solution</b>: check the authentication parameters such as <code>Access Token URL</code>, <code>Client ID</code> e <code>Client secret</code> and request a new access token.</p>
- 
-* * *   
-</details>
-     
-  
-
-<details>
-<summary><b>Invalid signature</b></summary>
-
-*** 
-    
-<b>Message: "Invalid signature"</b>
-    
-<p><b>Possible cause</b>: failure in recognizing the URL of the client application.
-        
-<b>Solution</b>: check the URL of the client application and resent the request.</p>
-
-* * * 
-</details>
-     
-
-<details>
-    <summary><b>No route matched with those values</b></summary>
-    
-***   
-    
-<b>Message: "No route matched with those values."</b>
-   <p><b>Possible cause</b>: the authorization header is missing in the API request.<br>
-        
-  <b>Solution</b>: request a new access token.</p>
-   
- * * *
-</details>
- 
-
-<details>
-    <summary><b> Request timed out</b></summary>
-    
 ***
-    
-<b>Message: "Request timed out."</b>
-<p><b>Possible cause</b>: the request time has expired.<br>
-        
-<b>Solution</b>: check the connectivity between the source of the request and the Segura server.</p>
+
+</details>
+
+<details>
+
+<summary>500 - Internal Server Error</summary>
+
+***
+
+Message: "Unexpected error."\
+
+
+Possible cause: the error is in the Segura server.\
+
+
+Solution: contact the support team for more information.
+
+***
+
+Message: "You are not authorized to access this resource."
+
+Possible cause: you don’t have the authorization to access this resource.\
+
+
+Solution: ask the administrator to check your permission to access the PAM Core resources in A2A.
+
+***
+
+</details>
+
+<details>
+
+<summary>Client authentication failed</summary>
+
+***
+
+Message: "Client authentication failed."
+
+Possible cause: failure in your application authentication with the Segura server.\
+
+
+Solution: check the authentication parameters such as `Access Token URL`, `Client ID` e `Client secret` and request a new access token.
+
+***
+
+</details>
+
+<details>
+
+<summary>Invalid signature</summary>
+
+***
+
+Message: "Invalid signature"
+
+Possible cause: failure in recognizing the URL of the client application.
+
+Solution: check the URL of the client application and resent the request.
+
+***
+
+</details>
+
+<details>
+
+<summary>No route matched with those values</summary>
+
+***
+
+Message: "No route matched with those values."
+
+Possible cause: the authorization header is missing in the API request.\
+
+
+Solution: request a new access token.
+
+***
+
+</details>
+
+<details>
+
+<summary>Request timed out</summary>
+
+***
+
+Message: "Request timed out."
+
+Possible cause: the request time has expired.\
+
+
+Solution: check the connectivity between the source of the request and the Segura server.
+
 </details>

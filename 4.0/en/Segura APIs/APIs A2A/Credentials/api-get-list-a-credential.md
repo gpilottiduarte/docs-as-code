@@ -4,31 +4,32 @@ Access information of a credential registered in **PAM Core**.
 
 ## Prerequisites
 
-* Authorization with **access** permission to **PAM Core** granted by the administator in **A2A**. 
-More information in [How to manage authorizations in A2A](/v4/docs/how-to-manage-authorizations-in-a2a).
-* Credential created in **PAM Core**. 
-More information in [POST | Create credential](/v4/docs/api-post-create-credential).
+* Authorization with **access** permission to **PAM Core** granted by the administator in **A2A**.\
+  More information in [How to manage authorizations in A2A](../../../../../v4/docs/how-to-manage-authorizations-in-a2a/).
+* Credential created in **PAM Core**.\
+  More information in [POST | Create credential](../../../../../v4/docs/api-post-create-credential/).
 
 ## List credential by `id` - Request
 
-<code><span style="color:green"> GET</code></span> `api/pam/credential/[id]`
+`GET` `api/pam/credential/[id]`
 
 ### Request parameters
 
 Send the parameter below in the **path** of the URL.
 
-* <summary><code>id</code> - <b><b>int</b></b> - <span style="color:red"> required</span style="color:red"> - Unique identification code of the credential.</summary><b>Note</b>: this value is automatically assigned by Segura in <a href="/v4/docs/api-post-create-credential">POST | Create credential</a> and is obtained in the response to the <a href="/v4/docs/api-get-list-all-credentials"> GET | List all credentials</a> request. 
+* `id` - int - required - Unique identification code of the credential.Note: this value is automatically assigned by Segura in [POST | Create credential](../../../../../v4/docs/api-post-create-credential/) and is obtained in the response to the [GET | List all credentials](../../../../../v4/docs/api-get-list-all-credentials/) request.
 
 ### Example request
-<code><span style="color:green"> GET</code></span> `{{url}}/api/pam/5`
 
-## Response 
+`GET` `{{url}}/api/pam/5`
 
-```json 
+## Response
+
+```json
 HTTP/1.1 200 OK
 ```
 
-``` json
+```json
 {
     "response": {
         "status": 200,
@@ -59,26 +60,29 @@ HTTP/1.1 200 OK
 
 ## List credential by `username@hostname` - Request
 
-<code><span style="color:green"> GET</code></span> `api/pam/credential/[username@hostname]`
+`GET` `api/pam/credential/[username@hostname]`
 
 ### Request parameters
 
 Send the parameter below in the **path** of the URL.
 
-* <summary><code>username@hostname</code> - <b><b>int</b></b> - <span style="color:red"> required</span style="color:red"> - <code>username</code> and  <code>hostname</code> associated with the credential separated by an @ symbol. </summary><b>Note</b>: these values are provided by the user in <a href="/v4/docs/api-post-create-credential">POST | Create credential</a>  and are obtained in the response to the <a href="/v4/docs/api-get-list-all-credentials"> GET | List all credentials</a> request. <p><b>Example</b>: <code>credential_5@destktop-91.com</code></p>
+*   `username@hostname` - int - required - `username` and `hostname` associated with the credential separated by an @ symbol.Note: these values are provided by the user in [POST | Create credential](../../../../../v4/docs/api-post-create-credential/) and are obtained in the response to the [GET | List all credentials](../../../../../v4/docs/api-get-list-all-credentials/) request.
+
+    Example: `credential_5@destktop-91.com`
 
 ### Example request
-<code><span style="color:green"> GET</code></span> `{{url}}api/pam/credential_5@destktop-91.com`
 
-:::(Warning) (Attention)
-If the `username` provided has an @ in it, as in `johndoe@Segura`, the endpoint won’t work as expected due to the conflict caused by the presence of two @ symbols. 
+`GET` `{{url}}api/pam/credential_5@destktop-91.com`
+
+:::(Warning) (Attention)\
+If the `username` provided has an @ in it, as in `johndoe@Segura`, the endpoint won’t work as expected due to the conflict caused by the presence of two @ symbols.\
 :::
 
-```json 
+```json
 HTTP/1.1 200 OK
 ```
 
-``` json
+```json
 {
     "response": {
         "status": 200,
@@ -106,182 +110,175 @@ HTTP/1.1 200 OK
         "expiration_time": "2021-01-16T17:31:39"
     }
 ```
+
 ## Response body fields
 
-* <summary><code>credential</code> - <b>object</b> - Credential data.</summary>
+* `credential` - object - Credential data.
 
-<summary>&nbsp;&emsp;&emsp;&nbsp;→ <code>id</code> - <b><b>int</b></b> - Unique identification code of the credential.</summary>
+&#x20;   → `id` - int - Unique identification code of the credential.\
+&#x20;   →`identifier` - string - Unique string defined by the user or Segura for identifying the credential.    Note: this value can be updated through the `POST` `api/pam/credential` endpoint.\
+&#x20;   →`username` - string - Username assigned to the credential.\
+&#x20;   →`expiration` - string - Expiration date and time of the credential based on ISO 8601.\
+&#x20;   →`password` - string - Password assigned to the credential.\
+&#x20;   →`content` - string - Password assigned to the credential.\
+&#x20;   →`hostname` - string - Hostname of the device associated with the credential.\
+&#x20;   →`parent_credential_cod` - string - Parent credential’s identifier.\
+&#x20;   →`parent_credential` - string - Parent credential.    Note: when you select a parent credential, the child credential will assume the same password as the parent credential. Whenever there is a manual or automated password change on the parent credential, the child credential will also be modified and assume the same password as the parent credential.\
+&#x20;   →`additional` - string - Additional information about the credential.\
+&#x20;   →`domain` - string - Domain’s name or abbreviation.\
+&#x20;   →`ip` - string - IP address of the device associated with the credential.\
+&#x20;   →`port` - string - Port of the device associated with the credential.\
+&#x20;   →`port` - string - Port of the device associated with the credential.\
+&#x20;   →`model` - string - Device model.\
+&#x20;   →`expiration_time` - string - Date and time of credential expiration based on ISO 8601.    Example: `2024-05-16T17:31:31-03:00`\
 
-<br>
-<summary>&nbsp;&emsp;&emsp;&nbsp;→<code>identifier</code> - <b><b>string</b></b> - Unique string defined by the user or Segura for identifying the credential.<summary>
-&nbsp;&emsp;&emsp; <b>Note</b>: this value can be updated through the <code><span style="color:orange"> POST</code></span> <code>api/pam/credential</code> endpoint.
 
-<br>
-<summary>&nbsp;&emsp;&emsp;&nbsp;→<code>username</code> - <b><b>string</b></b> - Username assigned to the credential.</summary>
-
-<br>
-<summary>&nbsp;&emsp;&emsp;&nbsp;→<code>expiration</code> - <b>string</b> - Expiration date and time of the credential based on ISO 8601.</summary>
-
-<br>
-<summary>&nbsp;&emsp;&emsp;&nbsp;→<code>password</code> - <b>string</b> - Password assigned to the credential.</summary>
-    
-<br>        
-<summary>&nbsp;&emsp;&emsp;&nbsp;→<code>content</code> - <b>string</b> - Password assigned to the credential.</summary>
-    
-<br>        
-<summary>&nbsp;&emsp;&emsp;&nbsp;→<code>hostname</code> - <b>string</b> - Hostname of the device associated with the credential.</summary>
-    
-<br>        
-<summary>&nbsp;&emsp;&emsp;&nbsp;→<code>parent_credential_cod</code> - <b>string</b> - Parent credential’s identifier.</summary>
-    
-<br> 
-<summary>&nbsp;&emsp;&emsp;&nbsp;→<code>parent_credential</code> - <b>string</b> - Parent credential.</summary>
-&nbsp;&emsp;&emsp;&nbsp;<b>Note</b>: when you select a parent credential, the child credential will assume the same password as the parent credential. Whenever there is a manual or automated password change on the parent credential, the child credential will also be modified and assume the same password as the parent credential.
-  
-<br>
-<summary>&nbsp;&emsp;&emsp;&nbsp;→<code>additional</code> - <b>string</b> - Additional information about the credential.</summary>
-    
-
-<br> 
-<summary>&nbsp;&emsp;&emsp;&nbsp;→<code>domain</code> - <b>string</b> - Domain’s name or abbreviation.</summary>    
-
-<br> 
-<summary>&nbsp;&emsp;&emsp;&nbsp;→<code>ip</code> - <b>string</b> - IP address of the device associated with the credential.</summary>
-
-<br>
- <summary>&nbsp;&emsp;&emsp;&nbsp;→<code>port</code> - <b>string</b> - Port of the device associated with the credential.</summary>
-
-<br>
-<summary>&nbsp;&emsp;&emsp;&nbsp;→<code>port</code> - <b>string</b> - Port of the device associated with the credential.</summary>
-
-<br>
- <summary>&nbsp;&emsp;&emsp;&nbsp;→<code>model</code> - <b>string</b> - Device model.</summary> 
-
-<br>
-<summary>&nbsp;&emsp;&emsp;&nbsp;→<code>expiration_time</code> - <b>string</b> - Date and time of credential expiration based on ISO 8601.</summary>&nbsp;&emsp;&emsp;&nbsp;<b>Example</b>: <code>2024-05-16T17:31:31-03:00</code>
-    
-<br> 
-
-## Errors
-    
-<details>
-<summary><b><span style="color:red">400</span> - Bad Request</b></summary>
-
-***
-    
-<b>Message: "1007: Credential not found"</b><br>
-
-<p><b>Possible cause</b>: the credential wasn’t found.<br>
-        
-<b>Solution</b>: check if the values for the parameters used to search for the credential were correct and resend the request.</p>
-    
- ***
-    
-<b>Message: "1009: No access to credential"</b><br>
-
-<p><b>Possible cause</b>: you’re not authorized to access the credential.<br>
-        
-<b>Solution</b>: ask the administrator to check your permission to access the credential.</p>
-    
-***
-    
-<b>Message: "1010: The item is not a credential"</b><br>
-
-<p><b>Possible cause</b>: the value for the <code>id</code> parameter doesn’t belong to a credential.<br>
-        
-<b>Solution</b>: check the <code>id</code> and resend the request.</p>
-***
-</details>    
+### Errors
 
 <details>
-<summary><b><span style="color:red">404</span> - Not Found</b></summary>
+
+<summary>400 - Bad Request</summary>
 
 ***
-<b>Message: "Resource sub not found"</b><br>
 
-<p><b>Possible cause</b>: the URL or the requested resource isn’t correct.<br>
-        
-<b>Solution</b>: check the URL and make sure the parameter is correct.</p>
-* * *
+Message: "1007: Credential not found"\
+
+
+Possible cause: the credential wasn’t found.\
+
+
+Solution: check if the values for the parameters used to search for the credential were correct and resend the request.
+
+***
+
+Message: "1009: No access to credential"\
+
+
+Possible cause: you’re not authorized to access the credential.\
+
+
+Solution: ask the administrator to check your permission to access the credential.
+
+***
+
+Message: "1010: The item is not a credential"\
+
+
+Possible cause: the value for the `id` parameter doesn’t belong to a credential.\
+
+
+Solution: check the `id` and resend the request.
+
+***
+
 </details>
 
-
 <details>
- 
-<summary><b><span style="color:red">500</span> - Internal Server Error</b></summary>
 
-***
-    
-<b>Message: "Unexpected error."</b><br>
- 
-<p><b>Possible cause</b>: the error is in the Segura server.<br>
-        
-<b>Solution</b>: contact the support team for more information.</p>
+<summary>404 - Not Found</summary>
 
 ***
 
-<b>Message: "You are not authorized to access this resource."</b>
+Message: "Resource sub not found"\
 
-<p><b>Possible cause</b>: you don’t have the authorization to access this resource.<br>
-        
-<b>Solution</b>: ask the administrator to check your permission to access the <b>PAM Core</b> resources in <b>A2A</b>.</p>
 
-* * *
- </details>   
+Possible cause: the URL or the requested resource isn’t correct.\
 
-  
 
-<details>
-<summary><b>Client authentication failed</b></summary>
+Solution: check the URL and make sure the parameter is correct.
 
-*** 
-   
-<b>Message: "Client authentication failed."</b>
-<p><b>Possible cause</b>: failure in your application authentication with the Segura server. <br>
-        
-<b>Solution</b>: check the authentication parameters such as <code>Access Token URL</code>, <code>Client ID</code> e <code>Client secret</code> and request a new access token.</p>
- 
-* * *   
-</details>
-     
-  
-
-<details>
-<summary><b>Invalid signature</b></summary>
-
-*** 
-    
-<b>Message: "Invalid signature"</b>
-    
-<p><b>Possible cause</b>: failure in recognizing the URL of the client application.
-        
-<b>Solution</b>: check the URL of the client application and resent the request.</p>
-
-* * * 
-</details>
-     
-
-<details>
-    <summary><b>No route matched with those values</b></summary>
-    
-***   
-    
-<b>Message: "No route matched with those values."</b>
-   <p><b>Possible cause</b>: the authorization header is missing in the API request.<br>
-        
-  <b>Solution</b>: request a new access token.</p>
-   
- * * *
-</details>
- 
-
-<details>
-    <summary><b> Request timed out</b></summary>
-    
 ***
-    
-<b>Message: "Request timed out."</b>
-<p><b>Possible cause</b>: the request time has expired.<br>
-        
-<b>Solution</b>: check the connectivity between the source of the request and the Segura server.</p>
+
+</details>
+
+<details>
+
+<summary>500 - Internal Server Error</summary>
+
+***
+
+Message: "Unexpected error."\
+
+
+Possible cause: the error is in the Segura server.\
+
+
+Solution: contact the support team for more information.
+
+***
+
+Message: "You are not authorized to access this resource."
+
+Possible cause: you don’t have the authorization to access this resource.\
+
+
+Solution: ask the administrator to check your permission to access the PAM Core resources in A2A.
+
+***
+
+</details>
+
+<details>
+
+<summary>Client authentication failed</summary>
+
+***
+
+Message: "Client authentication failed."
+
+Possible cause: failure in your application authentication with the Segura server.\
+
+
+Solution: check the authentication parameters such as `Access Token URL`, `Client ID` e `Client secret` and request a new access token.
+
+***
+
+</details>
+
+<details>
+
+<summary>Invalid signature</summary>
+
+***
+
+Message: "Invalid signature"
+
+Possible cause: failure in recognizing the URL of the client application.
+
+Solution: check the URL of the client application and resent the request.
+
+***
+
+</details>
+
+<details>
+
+<summary>No route matched with those values</summary>
+
+***
+
+Message: "No route matched with those values."
+
+Possible cause: the authorization header is missing in the API request.\
+
+
+Solution: request a new access token.
+
+***
+
+</details>
+
+<details>
+
+<summary>Request timed out</summary>
+
+***
+
+Message: "Request timed out."
+
+Possible cause: the request time has expired.\
+
+
+Solution: check the connectivity between the source of the request and the Segura server.
+
 </details>

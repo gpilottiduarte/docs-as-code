@@ -3,28 +3,38 @@
 Update a related user in **Segura**.
 
 ## Prerequisites
-* Authorization with **access** permission to the **Users** resource granted by the administrator in **A2A**.
-More information in [How to manage authorizations in A2A](/v4/docs/how-to-manage-authorizations-in-a2a)
+
+* Authorization with **access** permission to the **Users** resource granted by the administrator in **A2A**.\
+  More information in [How to manage authorizations in A2A](../../../../../v4/docs/how-to-manage-authorizations-in-a2a/)
 
 ## Request
 
- <code><span style="color:blue"> PUT</code></span> <code>/api/user/related</code>
+`PUT` `/api/user/related`
 
 ## Request parameters
+
 Send the parameters you want to update in the **body** of the request.
 
-* <summary><code>id</code> - <b>int</b> - <span style="color:red">required</span> - Unique identification code of the related user.</summary>
-<br>
+* `id` - int - required - Unique identification code of the related user.
 
-* <summary><code>username</code> - <b>string</b> - <span style="color:red">required</span> - User identification name previously registered in Segura.</summary>
-<br>
+\
 
-* <summary><code>name</code> - <b>string</b> - <span style="color:red">required</span> - Name assigned to the related user being created.</summary>
-<br>
+
+* `username` - string - required - User identification name previously registered in Segura.
+
+\
+
+
+* `name` - string - required - Name assigned to the related user being created.
+
+\
+
 
 ### Example request
- <code><span style="color:blue"> PUT</code></span> <code>{{url}}/api/user/related</code>
-```json 
+
+`PUT` `{{url}}/api/user/related`
+
+```json
 { 
     "id": 6,
     "username": "dleite",
@@ -37,7 +47,8 @@ Send the parameters you want to update in the **body** of the request.
 ```json
 HTTP/1.1 201 CREATED
 ```
-```json 
+
+```json
 {
     "code": 200,
     "response": {
@@ -61,113 +72,156 @@ HTTP/1.1 201 CREATED
 ## Errors
 
 <details>
-<summary><b><span style="color:red">400</span> - Bad Request</b>.</summary>
 
-***
-<b>Message: "1001: Parameter 'id' was not informed!"</b>
-<p><b>Possible cause</b>: the required parameter <code>id</code> of the user wasn’t informed.<br></p>
-<b>Solution</b>: provide the <code>id</code> of the user and resend the request.
+<summary>400 - Bad Request.</summary>
 
 ***
 
-<b>Message: "1001: Parameter 'username' was not informed!"</b>
-<p><b>Possible cause</b>: the required parameter <code>username</code> Segura of the user wasn’t informed.<br></p>
-<b>Solution</b>: provide the <code>username</code> Segura of the user and resend the request.
+Message: "1001: Parameter 'id' was not informed!"
+
+Possible cause: the required parameter `id` of the user wasn’t informed.\
+
+
+Solution: provide the `id` of the user and resend the request.
 
 ***
 
-<b>Message: "1001: Parameter 'name' was not informed!"</b>
-<p><b>Possible cause</b>: the required parameter <code>name</code> of the user wasn’t informed.<br></p>
-<b>Solution</b>: provide the <code>name</code> you want to register for the user and resend the request.
+Message: "1001: Parameter 'username' was not informed!"
+
+Possible cause: the required parameter `username` Segura of the user wasn’t informed.\
+
+
+Solution: provide the `username` Segura of the user and resend the request.
 
 ***
 
-<b>Message: "1005: User does not exist"</b>
-<p><b>Possible cause</b>: the <code>username</code> provided hasn’t returned any user.<br></p>
-<b>Solution</b>: provide a valid <code>username</code> and resend the request.
+Message: "1001: Parameter 'name' was not informed!"
+
+Possible cause: the required parameter `name` of the user wasn’t informed.\
+
+
+Solution: provide the `name` you want to register for the user and resend the request.
 
 ***
 
-</details>
+Message: "1005: User does not exist"
 
-<details>
-<summary><b><span style="color:red">404</span> - Not Found</b>.</summary>
+Possible cause: the `username` provided hasn’t returned any user.\
 
-***
-<b>Message: "Resource sub not found"</b><br>
 
-<p><b>Possible cause</b>: the URL or requested resource isn’t correct.<br></p>
-<b>Solution</b>: check the URL and make sure all the parameters are correct.
-
-***
-
-</details>
-
-<details>
-<summary><b><span style="color:red">500</span> - Internal Server Error</b>.</summary>
-
-***
-    
-<b>Message: "Unexpected error."</b><br>
-<p><b>Possible cause</b>: the error is in the Segura server.<br></p>
-<b>Solution</b>: contact the support team for more information.
-    
-***
-
-<b>Message: "You are not authorized to access this resource."</b>
-<p><b>Possible cause</b>: you don’t have the authorization to access this resource.<br></p>
-<b>Solution</b>: ask the administrator to check your permission to access the <b>Users</b> resources in <b>A2A</b>.
+Solution: provide a valid `username` and resend the request.
 
 ***
 
 </details>
 
 <details>
-<summary><b>Client authentication failed</b>.</summary>
 
-***
-   
-<b>Message: "Client authentication failed."</b>
-<p><b>Possible cause</b>: failure in your application authentication with the Segura server.<br></p>
-<b>Solution</b>: check the authentication parameters such as <code>Access Token URL</code>, <code>Client ID</code> and <code>Client secret</code> and request a new access token.
+<summary>404 - Not Found.</summary>
 
 ***
 
-</details>
+Message: "Resource sub not found"\
 
-<details>
-<summary><b>Invalid signature</b>.</summary>
 
-*** 
-    
-<b>Message: "Invalid signature"</b>
-<p><b>Possible cause</b>: failure in recognizing the URL of the client application.<br></p>
-<b>Solution</b>: check the URL of the client application and resend the request.
+Possible cause: the URL or requested resource isn’t correct.\
+
+
+Solution: check the URL and make sure all the parameters are correct.
 
 ***
 
 </details>
 
 <details>
-<summary><b>No route matched with those values</b>.</summary>
 
-***   
-    
-<b>Message: "No route matched with those values."</b>
-<p><b>Possible cause</b>: the authorization header is missing in the API request.<br></p>
-<b>Solution</b>: request a new access token.
+<summary>500 - Internal Server Error.</summary>
+
+***
+
+Message: "Unexpected error."\
+
+
+Possible cause: the error is in the Segura server.\
+
+
+Solution: contact the support team for more information.
+
+***
+
+Message: "You are not authorized to access this resource."
+
+Possible cause: you don’t have the authorization to access this resource.\
+
+
+Solution: ask the administrator to check your permission to access the Users resources in A2A.
 
 ***
 
 </details>
 
 <details>
-<summary><b>Request timed out</b>.</summary>
-    
+
+<summary>Client authentication failed.</summary>
+
 ***
-    
-<b>Message: "Request timed out."</b>
-<p><b>Possible cause</b>: the request time has expired.<br></p>
-<b>Solution</b>: check the connectivity between the source of the request and the Segura server.
+
+Message: "Client authentication failed."
+
+Possible cause: failure in your application authentication with the Segura server.\
+
+
+Solution: check the authentication parameters such as `Access Token URL`, `Client ID` and `Client secret` and request a new access token.
+
+***
+
+</details>
+
+<details>
+
+<summary>Invalid signature.</summary>
+
+***
+
+Message: "Invalid signature"
+
+Possible cause: failure in recognizing the URL of the client application.\
+
+
+Solution: check the URL of the client application and resend the request.
+
+***
+
+</details>
+
+<details>
+
+<summary>No route matched with those values.</summary>
+
+***
+
+Message: "No route matched with those values."
+
+Possible cause: the authorization header is missing in the API request.\
+
+
+Solution: request a new access token.
+
+***
+
+</details>
+
+<details>
+
+<summary>Request timed out.</summary>
+
+***
+
+Message: "Request timed out."
+
+Possible cause: the request time has expired.\
+
+
+Solution: check the connectivity between the source of the request and the Segura server.
 
 </details>

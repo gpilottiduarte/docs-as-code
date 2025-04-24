@@ -2,86 +2,49 @@
 
 Create an API secret in **MySafe**.
 
-
-
 ## Request
 
- <code><span style="color:orange"> POST</code></span> `api/mysafe/secretapi`
+`POST` `api/mysafe/secretapi`
 
-
-:::(Info) (Info)
-When an API secret is added to **MySafe**, it's automatically associated with its creator, identifying them as the owner.
+:::(Info) (Info)\
+When an API secret is added to **MySafe**, it's automatically associated with its creator, identifying them as the owner.\
 :::
-
 
 ## Request parameters
-Send the parameters below in the request <b>body</b>.
 
+Send the parameters below in the request body.
 
-* <summary><code>name</code> - <b>string</b> - <span style="color:red">required</span> -  Name assigned to the API secret.</summary>
+* `name` - string - required - Name assigned to the API secret.
 
+\
+\*`url` - string - required - URL of the website where the API secret will be used.\
+\*`client_id` - string - required - ID of the client application.\
+\*`client_secret` - string - The secret used to authenticate the application.\
+\*`identifier_code` - string - Unique string defined by the user to identify the API secret.\
+\*`tags` - string - Keywords associated with the API secret.\
+\*`notes` - string - Observations about the API secret.\
+\*`method` - string - The HTTP method to be used in the API call.\
+\*`users_allowed` - array of objects - Data of the users with access to the API secret.\
+&#x20;   →`username` - string - Name of the user with API secret access permission.\
+&#x20;   →`can_edit` - boolean - Editing permission.    Nota: if left empty, users will have only viewing permission.
 
-<br>
-* <summary><code>url</code> - <b>string</b> - <span style="color:red">required</span> - URL of the website where the API secret will be used.</summary>
-
-
-<br>
-* <summary><code>client_id</code> - <b>string</b> - <span style="color:red">required</span> - ID of the client application.</summary> 
-
-
-<br>
-* <summary><code>client_secret</code> - <b>string</b>  - The secret used to authenticate the application.</summary>
-
-
-<br>
-* <summary><code>identifier_code</code> - <b>string</b> - Unique string defined by the user to identify the API secret.</summary>
-
-
-<br>
-* <summary><code>tags</code> - <b>string</b> - Keywords associated with the API secret.</summary>
-
-
- <br>
-* <summary><code>notes</code> - <b>string</b> - Observations about the API secret.</summary>
-
- <br>
-* <summary><code>method</code> - <b>string</b> - The HTTP method to be used in the API call. </summary>
-
-
-<br>
-* <summary><code>users_allowed</code> - <b>array of objects</b> - Data of the users with access to the API secret.</summary>
-
-
-<br>
-<summary>&nbsp;&emsp;&emsp;&nbsp;→<code>username</code> - <b>string</b> - Name of the user with API secret access permission.</summary>
-
-<br>
-<summary>&nbsp;&emsp;&emsp;&nbsp;→<code>can_edit</code> - <b>boolean</b> - Editing permission. </summary>
-
-<summary>&nbsp;&emsp;&emsp;&nbsp;<b>Nota</b>: if left empty, users will have only viewing permission.</summary>
-
-:::(Warning) (Attention)
-Users with <code>can_edit</code> = <code>true</code> permission can disable the API secret.
+:::(Warning) (Attention)\
+Users with `can_edit` = `true` permission can disable the API secret.\
 :::
 
-<br>
-* <summary><code>groups_allowed</code> - <b>array of objects</b> - Data of the groups with API secret access.</summary>
+\
+\*`groups_allowed` - array of objects - Data of the groups with API secret access.    →`name` - string - Name of the group with API secret access permission.\
+&#x20;   →`can_edit` - boolean - Editing permission.    Note: if left empty, group members will have only viewing permission.
 
-<summary>&nbsp;&emsp;&emsp;&nbsp;→<code>name</code> - <b>string</b> - Name of the group with API secret access permission.</summary>
-
-<br>
-<summary>&nbsp;&emsp;&emsp;&nbsp;→<code>can_edit</code> - <b>boolean</b> - Editing permission.</summary>
-<summary>&nbsp;&emsp;&emsp;&nbsp;<b>Note</b>: if left empty, group members will have only viewing permission.</summary>
-
-:::(Warning) (Attention)
-Group members with <code>can_edit</code> = <code>true</code> permission can disable the API secret.
+:::(Warning) (Attention)\
+Group members with `can_edit` = `true` permission can disable the API secret.\
 :::
 
- ### Example request
- 
-  <code><span style="color:orange"> POST</code></span> `{{url}}api/mysafe/secretapi`
+### Example request
 
-```json 
+`POST` `{{url}}api/mysafe/secretapi`
+
+```json
 {
     "name": "GCP",
     "url": "https://gcp.com",
@@ -104,15 +67,14 @@ Group members with <code>can_edit</code> = <code>true</code> permission can disa
     ]
 }
 ```
-  
-  
-  
-  ## Response
 
- ```json
+## Response
+
+```json
 HTTP/1.1 201 CREATED 
 ```
-```json 
+
+```json
   {
     "code": 201,
     "response": {
@@ -150,94 +112,118 @@ HTTP/1.1 201 CREATED
         "shared_error": []
     }
 }
- ```
- 
- ## Erros
- 
- <details>
-<summary><b><span style="color:red">400</span> - Bad Request</b>.</summary>
+```
 
-***
-<b>Message: "1001: Parameter 'name' was not informed!"</b>
-<p><b>Possible cause</b>: the required parameter <code>name</code> of the API secret wasn't informed.<br></p>
-<b>Solution</b>: provide a value for <code>name</code> and resend the request.
-  
-  
-* * *
-    
-<b>Message: "1001: Parameter 'url' was not informed!"</b>
-<p><b>Possible cause</b>: the required parameter <code>url</code> of the API secret wasn't informed.<br></p>
-<b>Solution</b>: provide a value for the <code>url</code> and resend the request.
-  
-* * *
-
-<b>Message: "1001: Parameter 'client_id' was not informed!"</b>
-<p><b>Possible cause</b>: the required parameter <code>client_id</code> of the API secret wasn't informed.<br></p>
-<b>Solution</b>: provide a value for the <code>client_id</code> and resend the request.
-
-* * *
-    
-
-    
-<b>Mensagem: "1001: Identifier already found in another API key of this user"</b>
-<p><b>Possible cause</b>: the <code>identifier</code> provided is already registered for another API secret.<br></p>
-<b>Solution</b>: provide a new value for the <code>identifier</code> and resend the request.
-
-* * *
-</details>
-
+## Erros
 
 <details>
-    <summary><b><span style="color:red">500</span> - Internal Server Error</b>.</summary>
+
+<summary>400 - Bad Request.</summary>
 
 ***
-    
-<b>Message: "Unexpected error."</b><br>
 
-<p><b>Possible cause</b>: the error is on the Segura server.<br>
-        
-<b>Solution</b>: contact the support team for more information.</p>
-    
- ***
- </details>
- 
- <details>
-    <summary><b>No route matched with those values.</b></summary>
+Message: "1001: Parameter 'name' was not informed!"
 
- ***
-    
-<b>Message: "No route matched with those values."</b>
-<p><b>Possible cause</b>: failure in your application authentication with the Segura server.<br>
-        
-<b>Solution</b>: check the authentication parameters such as <code>Access Token URL</code>, <code>Client ID</code> and  <code>Client Secret</code> and request a new access token or check and correct the URL. 
-* * *
-</details>
-     
-<details>
-<summary><b>An invalid response was received from the upstream server
-</b>.</summary>
+Possible cause: the required parameter `name` of the API secret wasn't informed.\
 
-*** 
-   
-<b>Message: "An invalid response was received from the upstream server</b>
-    
-<p><b>Possible cause</b>: the upstream server may be taking too long to respond, leading to a timeout error that is interpreted as an invalid response by the proxy/gateway server.<br>
-        
-<b>Solution</b>: check the connectivity between the source of the request and the Segura server.
+
+Solution: provide a value for `name` and resend the request.
+
 ***
+
+Message: "1001: Parameter 'url' was not informed!"
+
+Possible cause: the required parameter `url` of the API secret wasn't informed.\
+
+
+Solution: provide a value for the `url` and resend the request.
+
+***
+
+Message: "1001: Parameter 'client\_id' was not informed!"
+
+Possible cause: the required parameter `client_id` of the API secret wasn't informed.\
+
+
+Solution: provide a value for the `client_id` and resend the request.
+
+***
+
+Mensagem: "1001: Identifier already found in another API key of this user"
+
+Possible cause: the `identifier` provided is already registered for another API secret.\
+
+
+Solution: provide a new value for the `identifier` and resend the request.
+
+***
+
 </details>
-     
-   
 
 <details>
-<summary><b>The upstream server is timing out</b>.</summary>
 
-*** 
-    
-<b>Message: "The upstream server is timing out"</b>
-    
-<p><b>Possible cause</b>: the request time has expired.
-        
-<b>Solution</b>: check the connectivity between the source of the request and the Segura server.</p>
-* * *
+<summary>500 - Internal Server Error.</summary>
+
+***
+
+Message: "Unexpected error."\
+
+
+Possible cause: the error is on the Segura server.\
+
+
+Solution: contact the support team for more information.
+
+***
+
+</details>
+
+<details>
+
+<summary>No route matched with those values.</summary>
+
+***
+
+Message: "No route matched with those values."
+
+Possible cause: failure in your application authentication with the Segura server.\
+
+
+Solution: check the authentication parameters such as `Access Token URL`, `Client ID` and `Client Secret` and request a new access token or check and correct the URL.
+
+***
+
+</details>
+
+<details>
+
+<summary>An invalid response was received from the upstream server.</summary>
+
+***
+
+Message: "An invalid response was received from the upstream server
+
+Possible cause: the upstream server may be taking too long to respond, leading to a timeout error that is interpreted as an invalid response by the proxy/gateway server.\
+
+
+Solution: check the connectivity between the source of the request and the Segura server.
+
+***
+
+</details>
+
+<details>
+
+<summary>The upstream server is timing out.</summary>
+
+***
+
+Message: "The upstream server is timing out"
+
+Possible cause: the request time has expired.
+
+Solution: check the connectivity between the source of the request and the Segura server.
+
+***
+
 </details>

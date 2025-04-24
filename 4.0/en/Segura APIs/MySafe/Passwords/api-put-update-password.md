@@ -8,78 +8,41 @@ Update a password in **MySafe**.
 
 ## Request
 
-
- <code><span style="color:orange"> POST</code></span> `api/mysafe/password/update/[identifier]`
-
+`POST` `api/mysafe/password/update/[identifier]`
 
 ## Request parameters
+
 Send the parameter below in the **path** of the URL.
 
-* <summary><code>identifier</code> - <b>int</b> - <span style="color:red">required</span> - Unique identification code of the password.</summary><b>Note</b>:this value is automatically assigned by Segura in  <a = href "/v4/docs/api-post-create-password">POST | Create password</a> and is obtained in the response <a = href "/v4/docs/api-get-list-all-passwords">GET | List all passwords</a> request.</summary>
+* `identifier` - int - required - Unique identification code of the password.Note:this value is automatically assigned by Segura in [POST | Create password](api-put-update-password.md) and is obtained in the response [GET | List all passwords](api-put-update-password.md) request.
 
-<br>
-Send the parameters below in the request <b>body</b>.
+\
+Send the parameters below in the request body.
 
-* <summary><code>name</code> - <b>string</b>  - Name of the password.</summary>
+* `name` - string - Name of the password.
 
-
-<br>
-* <summary><code>username</code> - <b>string</b> - Username used to access the account.</summary>
-
-
-<br>
-* <summary><code>password</code> - <b>string</b> - The password that's being added.</summary>
-
-
-<br>
-* <summary><code>url</code> - <b>string</b> - URL of the website where the password is being used.</summary>
-
-
-<br>
-* <summary><code>secret_key</code> - <b>string</b> - The <i>seed</i> for the TOTP automatic generation.</summary><b>Note</b>: must be encoded in base32.
-
-
-
-<br>
-* <summary><code>notes</code> - <b>string</b> - Additional password observations. </summary>
-
-
-<br>
-* <summary><code>users_allowed</code> - <b>array of objects</b> - Data of the users with password access.</summary>
-
-<summary>&nbsp;&emsp;&emsp;&nbsp;→<code>username</code> - <b>string</b> - Name of the user with password access permission.</summary>
-
-<br>
-<summary>&nbsp;&emsp;&emsp;&nbsp;→<code>can_edit</code> - <b>boolean</b> - Editing permission.</summary>
-<summary>&nbsp;&emsp;&emsp;&nbsp;<b>Note</b>: if left empty, users will have only viewing permission.</summary>
-    
- <br>
-:::(Warning) (Attention)
-Users with <code>can_edit</code> = <code>true</code> permission can disable the password.
+\
+\*`username` - string - Username used to access the account.\
+\*`password` - string - The password that's being added.\
+\*`url` - string - URL of the website where the password is being used.\
+\*`secret_key` - string - The _seed_ for the TOTP automatic generation.Note: must be encoded in base32.\
+\*`notes` - string - Additional password observations.\
+\*`users_allowed` - array of objects - Data of the users with password access.    →`username` - string - Name of the user with password access permission.\
+&#x20;   →`can_edit` - boolean - Editing permission.    Note: if left empty, users will have only viewing permission.\
+:::(Warning) (Attention)\
+Users with `can_edit` = `true` permission can disable the password.\
+:::\
+\*`groups_allowed` - array of objects - Data of the groups with password access.    →`name` - string - Name of the group with password access permission.\
+&#x20;   →`can_edit` - boolean - Editing permission.    Note: if left empty, group members will have only viewing permission.\
+:::(Warning) (Attention)\
+Group members with `can_edit` = `true` permission can disable the password.\
 :::
 
-<br>
-* <summary><code>groups_allowed</code> - <b>array of objects</b> - Data of the groups with password access.</summary>
+### Example request
 
-<summary>&nbsp;&emsp;&emsp;&nbsp;→<code>name</code> - <b>string</b> - Name of the group with password access permission.</summary>
+`PUT` `api/mysafe/password/update/9`
 
-<br>
-<summary>&nbsp;&emsp;&emsp;&nbsp;→<code>can_edit</code> - <b>boolean</b> - Editing permission.</summary>
-<summary>&nbsp;&emsp;&emsp;&nbsp;<b>Note</b>: if left empty, group members will have only viewing permission.</summary>
-    
- <br>
-:::(Warning) (Attention)
-Group members with <code>can_edit</code> = <code>true</code> permission can disable the password.
-:::
-
-
-
-
-  ### Example request
-
-<code><span style="color:blue"> PUT</code></span> `api/mysafe/password/update/9`
-
-```json 
+```json
 {
     "name": "senseg account",
     "url": "www.Segura.com",
@@ -101,14 +64,14 @@ Group members with <code>can_edit</code> = <code>true</code> permission can disa
     ]
 }
 ```
-  
-  
-  
-  ## Response 
+
+## Response
+
 ```json
 HTTP/1.1 200 OK
 ```
-```json 
+
+```json
  {
     "code": 200,
     "response": {
@@ -144,78 +107,97 @@ HTTP/1.1 200 OK
     }
 }
 ```
- 
- ## Errors
- 
- <details>
-<summary><b><span style="color:red">400</span> - Bad Request</b>.</summary>
 
-***
- <b>Message: "1005: Password not found"</b>
-<p><b>Possible cause</b>: the password wasn't found.<br></p>
-<b>Solution</b>: check the value for the <code>identifier</code> and resend the request.
-
-    
-* * *
-    
-<b>Message: "1006: User does not have access"</b>
-<p><b>Possible cause</b>: user isn't allowed to access this item.<br></p>
-
-* * *
-</details>
-
+## Errors
 
 <details>
-    <summary><b><span style="color:red">500</span> - Internal Server Error</b>.</summary>
+
+<summary>400 - Bad Request.</summary>
 
 ***
-    
-<b>Message: "Unexpected error."</b><br>
 
-<p><b>Possible cause</b>: the error is in the Segura server.<br>
-        
-<b>Solution</b>: contact the support team for more information.</p>
-    
- ***
- </details>
- 
- <details>
-    <summary><b>No route matched with those values.</b></summary>
+Message: "1005: Password not found"
 
- ***
-    
-<b>Message: "You are not authorized to access this resource."</b>
-<p><b>Possíveis causas</b>: failure in your application authentication with the Segura server.<br>
-        
-<b>Solution</b>: check the authentication parameters such as <code>Access Token URL</code>, <code>Client ID</code> and  <code>Client Secret</code> and request a new access token or check and correct the URL. 
-* * *
-</details>
-     
-<details>
-<summary><b>An invalid response was received from the upstream server
-</b>.</summary>
+Possible cause: the password wasn't found.\
 
-*** 
-   
-<b>Message: "An invalid response was received from the a seupstream server</b>
-    
-<p><b>Possible cause</b>: the upstream server may be taking too long to respond, leading to a timeout error that is interpreted as an invalid response by the proxy/gateway server.<br>
-        
-<b>Solution</b>: check the connectivity between the source of the request and the Segura server.
+
+Solution: check the value for the `identifier` and resend the request.
+
 ***
+
+Message: "1006: User does not have access"
+
+Possible cause: user isn't allowed to access this item.\
+
+
+***
+
 </details>
-     
-   
 
 <details>
-<summary><b>The upstream server is timing out</b>.</summary>
 
-*** 
-    
-<b>Message: "The upstream server is timing out"</b>
-    
-<p><b>Possible cause</b>: the request time has expired.
-        
-<b>Solution</b>: check the connectivity between the source of the request and the Segura server.</p>
-* * *
+<summary>500 - Internal Server Error.</summary>
+
+***
+
+Message: "Unexpected error."\
+
+
+Possible cause: the error is in the Segura server.\
+
+
+Solution: contact the support team for more information.
+
+***
+
+</details>
+
+<details>
+
+<summary>No route matched with those values.</summary>
+
+***
+
+Message: "You are not authorized to access this resource."
+
+Possíveis causas: failure in your application authentication with the Segura server.\
+
+
+Solution: check the authentication parameters such as `Access Token URL`, `Client ID` and `Client Secret` and request a new access token or check and correct the URL.
+
+***
+
+</details>
+
+<details>
+
+<summary>An invalid response was received from the upstream server.</summary>
+
+***
+
+Message: "An invalid response was received from the a seupstream server
+
+Possible cause: the upstream server may be taking too long to respond, leading to a timeout error that is interpreted as an invalid response by the proxy/gateway server.\
+
+
+Solution: check the connectivity between the source of the request and the Segura server.
+
+***
+
+</details>
+
+<details>
+
+<summary>The upstream server is timing out.</summary>
+
+***
+
+Message: "The upstream server is timing out"
+
+Possible cause: the request time has expired.
+
+Solution: check the connectivity between the source of the request and the Segura server.
+
+***
+
 </details>

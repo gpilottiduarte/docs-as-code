@@ -10,13 +10,13 @@ In addition to the list of devices offered by Segura, it’s also possible to cr
 
 ## Devices are classified by:
 
-- Model.
-- Type.
-- Vendor.
+* Model.
+* Type.
+* Vendor.
 
 :::(Info) (Info)
 
-In both, **Connectivity** and **Logs**, registering new elements won’t be possible. Thus, the only possible operation is to *issue, download and schedule reports*. 
+In both, **Connectivity** and **Logs**, registering new elements won’t be possible. Thus, the only possible operation is to _issue, download and schedule reports_.
 
 :::
 
@@ -37,7 +37,7 @@ Fill in:
 2. For **Enabled**, select **Yes**.
 3. For **Type**, select the device type.
 4. For **Vendor**, select the manufacturer of this new device.
-5. Click the **Choose file**  button to load an icon to identify the device model.
+5. Click the **Choose file**  button to load an icon to identify the device model.
 
 Save the new template by clicking the **Save** button.
 
@@ -75,15 +75,15 @@ To register a new device vendor in **PAM Core**, follow these steps:
 
 To save the new manufacturer, click the **Save** button.
 
-::: (Warning) (Important)
-All ID icons you upload must be in JPG or PNG formats, and must not exceed 200 KB.
+::: (Warning) (Important)\
+All ID icons you upload must be in JPG or PNG formats, and must not exceed 200 KB.\
 :::
 
 ## How to register a site
 
 To register a new site in **PAM Core**, follow these steps:
 
-1.  On Segura, in the navigation bar, hover over the **Products menu** and select **Devices**.
+1. On Segura, in the navigation bar, hover over the **Products menu** and select **Devices**.
 2. In the side menu, select **Settings > Sites**.
 3. The site listing will load.
 4. In the bottom-right corner, click on **+Add**.
@@ -127,7 +127,6 @@ In Agents click on the **+Add** button, and fill in the fields:
 
 To save the new connector, click the **Save** button.
 
-
 ***
 
-Do you still have questions? Reach out to the [Segura Community](https://community.Segura.io/).
+Do you still have questions? Reach out to the [Segura Community](https://community.segura.io/).

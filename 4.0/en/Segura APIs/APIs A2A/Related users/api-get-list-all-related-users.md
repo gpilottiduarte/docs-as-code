@@ -3,22 +3,24 @@
 Access related users’ information in **Segura**.
 
 ## Prerequisites
-* Authorization with **access** permission to the **Users** resource granted by the administrator in **A2A**.
-More information in [How to manage authorizations in A2A](/v4/docs/how-to-manage-authorizations-in-a2a)
+
+* Authorization with **access** permission to the **Users** resource granted by the administrator in **A2A**.\
+  More information in [How to manage authorizations in A2A](../../../../../v4/docs/how-to-manage-authorizations-in-a2a/)
 
 ## Request
 
- <code><span style="color:orange"> GET</code></span> <code>/api/user/related</code>
+`GET` `/api/user/related`
 
 ### Example Request
 
-<code><span style="color:orange"> GET</code></span> `{{url}}api/user/related`
+`GET` `{{url}}api/user/related`
 
-## Response 
+## Response
 
 ```json
 HTTP/1.1 200 OK
 ```
+
 ```json
 {
     "code": 200,
@@ -69,94 +71,107 @@ HTTP/1.1 200 OK
 
 ### Response Body Fields
 
-<summary>&#8226; <code>relatedUsers</code> - <b>array of objects</b> - Related users’ data.</summary>
-<br>
-<summary>&nbsp;&emsp;&emsp;&nbsp;→ <code>id</code> - <b>int</b> - Related user unique identification code generated automatically by Segura in <a href="/v4/docs/api-post-create-related-user">POST | Create related user</a>.</summary>
-<br>
-<summary>&nbsp;&emsp;&emsp;&nbsp;→ <code>name</code> - <b>string</b> - Name assigned to the related user.</summary>
-<br>
-<summary>&nbsp;&emsp;&emsp;&nbsp;→ <code>username</code> - <b>string</b> - Identification name for the user in Segura.</summary>
-<br>
+• `relatedUsers` - array of objects - Related users’ data.\
+&#x20;   → `id` - int - Related user unique identification code generated automatically by Segura in [POST | Create related user](../../../../../v4/docs/api-post-create-related-user/).\
+&#x20;   → `name` - string - Name assigned to the related user.\
+&#x20;   → `username` - string - Identification name for the user in Segura.\
+
 
 ## Errors
 
 <details>
-<summary><b><span style="color:red">404</span> - Not Found</b>.</summary>
 
-***
-<b>Message: "Resource sub not found"</b><br>
-
-<p><b>Possible cause</b>: the URL or requested resource isn’t correct.<br>
-<b>Solution</b>: check the URL and make sure all the parameters are correct.</p>
+<summary>404 - Not Found.</summary>
 
 ***
 
-</details>
+Message: "Resource sub not found"\
 
-<details>
-<summary><b><span style="color:red">500</span> - Internal Server Error</b>.</summary>
 
-***
-    
-<b>Message: "Unexpected error."</b><br>
-<p><b>Possible cause</b>: the error is in the Segura server.<br>
-<b>Solution</b>: contact the support team for more information.</p>
-    
-***
-<b>Message: "You are not authorized to access this resource."</b>
-<p><b>Possible cause</b>: you don’t have the authorization to access this resource.<br>
-<b>Solution</b>: ask the administrator to check your permission to access the <b>Users</b> resources in <b>A2A</b>.</p>
+Possible cause: the URL or requested resource isn’t correct.\
+Solution: check the URL and make sure all the parameters are correct.
 
 ***
 
 </details>
 
 <details>
-<summary><b>Client authentication failed</b>.</summary>
 
-***
-   
-<b>Message: "Client authentication failed."</b>
-<p><b>Possible cause</b>: failure in your application authentication with the Segura server.<br>
-<b>Solution</b>: check the authentication parameters such as <code>Access Token URL</code>, <code>Client ID</code> and <code>Client secret</code> and request a new access token.</p>
+<summary>500 - Internal Server Error.</summary>
 
 ***
 
-</details>
+Message: "Unexpected error."\
 
-<details>
-<summary><b>Invalid signature</b>.</summary>
 
-*** 
-    
-<b>Message: "Invalid signature"</b>
-<p><b>Possible cause</b>: failure in recognizing the URL of the client application.<br>
-<b>Solution</b>: check the URL of the client application and resend the request.</p>
+Possible cause: the error is in the Segura server.\
+Solution: contact the support team for more information.
+
+***
+
+Message: "You are not authorized to access this resource."
+
+Possible cause: you don’t have the authorization to access this resource.\
+Solution: ask the administrator to check your permission to access the Users resources in A2A.
 
 ***
 
 </details>
 
 <details>
-<summary><b>No route matched with those values</b>.</summary>
 
-***   
-    
-<b>Message: "No route matched with those values."</b>
-<p><b>Possible cause</b>: the authorization header is missing in the API request.<br>
-<b>Solution</b>: request a new access token.</p>
+<summary>Client authentication failed.</summary>
+
+***
+
+Message: "Client authentication failed."
+
+Possible cause: failure in your application authentication with the Segura server.\
+Solution: check the authentication parameters such as `Access Token URL`, `Client ID` and `Client secret` and request a new access token.
 
 ***
 
 </details>
 
 <details>
-<summary><b>Request timed out</b>.</summary>
-    
+
+<summary>Invalid signature.</summary>
+
 ***
-    
-<b>Message: "Request timed out."</b>
-<p><b>Possible cause</b>: the request time has expired.<br>
-<b>Solution</b>: check the connectivity between the source of the request and the Segura server.</p>
+
+Message: "Invalid signature"
+
+Possible cause: failure in recognizing the URL of the client application.\
+Solution: check the URL of the client application and resend the request.
+
+***
+
+</details>
+
+<details>
+
+<summary>No route matched with those values.</summary>
+
+***
+
+Message: "No route matched with those values."
+
+Possible cause: the authorization header is missing in the API request.\
+Solution: request a new access token.
+
+***
+
+</details>
+
+<details>
+
+<summary>Request timed out.</summary>
+
+***
+
+Message: "Request timed out."
+
+Possible cause: the request time has expired.\
+Solution: check the connectivity between the source of the request and the Segura server.
 
 </details>
